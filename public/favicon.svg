@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Card background -->
+  <rect width="64" height="64" rx="8" fill="#0D0912"/>
+  <rect x="2" y="2" width="60" height="60" rx="7" fill="none" stroke="#D4AF37" stroke-width="2"/>
+
+  <!-- Bull skull simplified -->
+  <g transform="translate(32,30)">
+    <!-- Horns -->
+    <path d="M-18,-10 Q-24,-18 -16,-20 Q-12,-16 -10,-10" stroke="#D4AF37" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <path d="M18,-10 Q24,-18 16,-20 Q12,-16 10,-10" stroke="#D4AF37" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <!-- Skull -->
+    <ellipse cx="0" cy="-4" rx="10" ry="9" fill="#D4AF37" opacity="0.9"/>
+    <!-- Face / muzzle -->
+    <rect x="-6" y="4" width="12" height="8" rx="4" fill="#D4AF37" opacity="0.9"/>
+    <!-- Eye sockets -->
+    <circle cx="-4" cy="-4" r="2.5" fill="#0D0912"/>
+    <circle cx="4" cy="-4" r="2.5" fill="#0D0912"/>
+    <!-- Nasal bridge -->
+    <line x1="0" y1="-1" x2="0" y2="3" stroke="#0D0912" stroke-width="1.5"/>
+    <!-- Nose -->
+    <circle cx="-2.5" cy="7" r="1.5" fill="#0D0912"/>
+    <circle cx="2.5" cy="7" r="1.5" fill="#0D0912"/>
+  </g>
+
+  <!-- Bottom text area -->
+  <rect x="4" y="50" width="56" height="10" rx="2" fill="#D4AF37" opacity="0.15"/>
+  <text x="32" y="58" font-family="Georgia,serif" font-size="5" fill="#D4AF37" text-anchor="middle" font-weight="bold">ATLAS VET</text>
+</svg>

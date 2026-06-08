@@ -1,0 +1,87 @@
+name: Deploy to VPS
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:       # permite disparar manualmente no GitHub
+
+concurrency:
+  group: deploy-production
+  cancel-in-progress: true  # se dois pushes seguidos, cancela o anterior
+
+jobs:
+  deploy:
+    name: Build & Deploy
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      # ── 1. Checkout ──────────────────────────────────────────────────────
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # ── 2. Node + cache npm ──────────────────────────────────────────────
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      # ── 3. Instalar dependências e fazer build no runner do GitHub ────────
+      #    (evita consumir CPU/RAM da VPS no build)
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+        env:
+          NODE_ENV: production
+
+      # ── 4. Enviar apenas os artefatos necessários para a VPS ─────────────
+      #    Exclui: node_modules (reinstalados na VPS), cards (ficam fixos lá)
+      - name: Sync files to VPS
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          port: ${{ secrets.VPS_PORT || 22 }}
+          source: >
+            .next/,
+            public/,
+            src/,
+            package.json,
+            package-lock.json,
+            next.config.mjs,
+            tailwind.config.ts,
+            tsconfig.json,
+            postcss.config.mjs
+          target: /var/www/pokemuu
+          strip_components: 0
+          overwrite: true
+
+      # ── 5. Instalar só dependências de produção e reiniciar o app ─────────
+      - name: Restart app on VPS
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
+          port: ${{ secrets.VPS_PORT || 22 }}
+          script: |
+            set -e
+            cd /var/www/pokemuu
+
+            # Instala apenas deps de produção (--omit=dev)
+            npm ci --omit=dev
+
+            # Recria o symlink das imagens se não existir
+            if [ ! -L public/cards ]; then
+              ln -s /var/www/pokemuu-cards public/cards
+            fi
+
+            # Reinicia (ou inicia pela primeira vez)
+            pm2 restart pokemuu || pm2 start ecosystem.config.js
+            pm2 save
+
+            echo "✅ Deploy concluído em $(date)"

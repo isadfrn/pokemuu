@@ -1,0 +1,42 @@
+import type { Metadata, Viewport } from 'next'
+import './globals.css'
+
+export const metadata: Metadata = {
+  title: 'Atlas Anatômico Veterinário · Bovinos',
+  description:
+    'Atlas Anatômico Veterinário de Bovinos — Série Pokémon. Morfofisiologia do Aparelho Neurolocomotor e Tegumento dos Animais · Medicina Veterinária · Unisociesc Blumenau.',
+  keywords: [
+    'atlas anatômico',
+    'veterinária',
+    'bovinos',
+    'morfofisiologia',
+    'músculos',
+    'ossos',
+    'articulações',
+    'Unisociesc',
+  ],
+  manifest: '/site.webmanifest',
+  icons: {
+    icon: [{ url: '/favicon.svg', type: 'image/svg+xml' }],
+    apple: '/favicon.svg',
+  },
+  openGraph: {
+    title: 'Atlas Anatômico Veterinário · Bovinos',
+    description: '328 cards estilo Pokémon de anatomia bovina.',
+    type: 'website',
+  },
+}
+
+export const viewport: Viewport = {
+  themeColor: '#D4AF37',
+  width: 'device-width',
+  initialScale: 1,
+}
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html lang="pt-BR">
+      <body className="bg-dark-900 text-white antialiased">{children}</body>
+    </html>
+  )
+}
