@@ -1,0 +1,8 @@
+node_modules
+.next
+.git
+.github
+infra
+public/cards
+.env*
+ecosystem.config.js
