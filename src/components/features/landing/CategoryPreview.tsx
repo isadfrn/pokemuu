@@ -92,7 +92,7 @@ export default function CategoryPreview() {
                           }}
                         >
                           <Image
-                            src={`/cards/${id}.png`}
+                            src={`/cards/${id}.webp`}
                             alt=""
                             width={80}
                             height={112}

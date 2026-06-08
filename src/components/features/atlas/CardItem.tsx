@@ -42,7 +42,7 @@ export default function CardItem({
       {/* Image */}
       <div className="relative aspect-[5/7] overflow-hidden" onClick={() => onOpen(card)}>
         <Image
-          src={`/cards/${card.id}.png`}
+          src={`/cards/${card.id}.webp`}
           alt={card.name}
           fill
           sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"

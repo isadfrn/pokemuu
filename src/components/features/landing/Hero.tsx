@@ -54,7 +54,7 @@ export default function Hero() {
               >
                 <div className="w-28 sm:w-32 rounded-xl overflow-hidden shadow-2xl ring-1 ring-white/10">
                   <Image
-                    src={`/cards/${id}.png`}
+                    src={`/cards/${id}.webp`}
                     alt={`Card ${id}`}
                     width={180}
                     height={252}

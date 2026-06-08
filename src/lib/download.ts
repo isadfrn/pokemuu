@@ -11,8 +11,8 @@ function toFilename(name: string): string {
 
 export function downloadSingle(card: Card): void {
   const link = document.createElement('a')
-  link.href = `/cards/${card.id}.png`
-  link.download = `${card.id}-${toFilename(card.name)}.png`
+  link.href = `/cards/${card.id}.webp`
+  link.download = `${card.id}-${toFilename(card.name)}.webp`
   document.body.appendChild(link)
   link.click()
   document.body.removeChild(link)
@@ -32,9 +32,9 @@ export async function downloadMultiple(
   let done = 0
   await Promise.all(
     cards.map(async (card) => {
-      const res = await fetch(`/cards/${card.id}.png`)
+      const res = await fetch(`/cards/${card.id}.webp`)
       const blob = await res.blob()
-      folder.file(`${card.id}-${toFilename(card.name)}.png`, blob)
+      folder.file(`${card.id}-${toFilename(card.name)}.webp`, blob)
       done++
       onProgress?.(Math.round((done / cards.length) * 100))
     }),

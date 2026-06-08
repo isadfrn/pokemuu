@@ -67,7 +67,7 @@ export default function CardModal({ card, allCards, onClose, onNavigate }: CardM
             <div className="flex-shrink-0 mx-auto sm:mx-0">
               <div className="relative w-48 sm:w-56 rounded-xl overflow-hidden ring-1 ring-gold-500/30 shadow-xl">
                 <Image
-                  src={`/cards/${card.id}.png`}
+                  src={`/cards/${card.id}.webp`}
                   alt={card.name}
                   width={280}
                   height={392}
