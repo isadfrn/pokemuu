@@ -18,6 +18,14 @@ export default function Footer() {
             <p className="text-white/15 text-[11px]">
               Prof. Alessandra de Moraes Sousa · Prof. Julia Cristina Alves
             </p>
+            <a
+              href="https://github.com/isadfrn"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-white/20 text-[11px] hover:text-white/50 transition-colors mt-1"
+            >
+              Desenvolvido por @isadfrn
+            </a>
           </div>
         </div>
       </div>
