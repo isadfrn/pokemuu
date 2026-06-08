@@ -148,7 +148,7 @@ export default function AtlasClient({ cards }: AtlasClientProps) {
               className="text-center py-24 space-y-3"
             >
               <p className="text-4xl">🔍</p>
-              <p className="text-white/50 text-sm">Nenhum card encontrado para "{query}"</p>
+              <p className="text-white/50 text-sm">Nenhum card encontrado para &ldquo;{query}&rdquo;</p>
               <button onClick={() => setQuery('')} className="text-gold-400 text-xs underline">
                 Limpar busca
               </button>
