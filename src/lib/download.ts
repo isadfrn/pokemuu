@@ -24,7 +24,6 @@ export async function downloadMultiple(
   onProgress?: (pct: number) => void,
 ): Promise<void> {
   const { default: JSZip } = await import('jszip')
-  const { saveAs } = await import('file-saver')
 
   const zip = new JSZip()
   const folder = zip.folder('atlas-anatomico')!
@@ -41,5 +40,12 @@ export async function downloadMultiple(
   )
 
   const blob = await zip.generateAsync({ type: 'blob' })
-  saveAs(blob, zipName)
+  const url = URL.createObjectURL(blob)
+  const link = document.createElement('a')
+  link.href = url
+  link.download = zipName
+  document.body.appendChild(link)
+  link.click()
+  document.body.removeChild(link)
+  URL.revokeObjectURL(url)
 }

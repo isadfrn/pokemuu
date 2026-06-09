@@ -38,8 +38,8 @@ export default function CategoryPreview() {
           className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4"
         >
           <div className="space-y-1.5">
-            <p className="text-white/30 text-xs font-medium tracking-[0.18em] uppercase">Navegar por categoria</p>
-            <h2 className="font-display font-bold text-2xl sm:text-3xl text-white">
+            <p className="text-gray-500 dark:text-white/55 text-xs font-medium tracking-[0.18em] uppercase">Navegar por categoria</p>
+            <h2 className="font-display font-bold text-2xl sm:text-3xl text-gray-900 dark:text-white">
               328 cards organizados
             </h2>
           </div>
@@ -70,7 +70,7 @@ export default function CategoryPreview() {
                 whileHover={{ y: -4 }}
               >
                 <Link href={`/atlas?category=${cat}`} className="block group">
-                  <div className={`rounded-2xl border bg-dark-800 overflow-hidden transition-all duration-300 ${meta.borderColor} hover:shadow-lg`}
+                  <div className={`rounded-2xl border bg-white dark:bg-dark-800 overflow-hidden transition-all duration-300 ${meta.borderColor} hover:shadow-lg`}
                     style={{ '--hover-shadow': `0 8px 30px ${meta.glowColor}` } as React.CSSProperties}
                   >
                     {/* Preview images */}
@@ -108,9 +108,9 @@ export default function CategoryPreview() {
                         <span className={`font-display font-semibold text-sm ${meta.color}`}>
                           {meta.icon} {meta.label}
                         </span>
-                        <span className="text-white/25 text-xs tabular-nums">{counts[cat]}</span>
+                        <span className="text-gray-500 dark:text-white/55 text-xs tabular-nums">{counts[cat]}</span>
                       </div>
-                      <div className="flex items-center gap-1 text-white/30 text-xs group-hover:text-white/55 transition-colors">
+                      <div className="flex items-center gap-1 text-gray-500 dark:text-white/55 text-xs group-hover:text-gray-800 dark:group-hover:text-white/80 transition-colors">
                         <span>Explorar</span>
                         <svg
                           className="w-3 h-3 group-hover:translate-x-0.5 transition-transform"

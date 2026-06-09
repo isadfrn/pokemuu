@@ -42,7 +42,7 @@ export default function CardModal({ card, allCards, onClose, onNavigate }: CardM
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-dark-900/90 backdrop-blur-md"
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 dark:bg-dark-900/90 backdrop-blur-md"
           onClick={onClose}
         >
           <motion.div
@@ -50,13 +50,13 @@ export default function CardModal({ card, allCards, onClose, onNavigate }: CardM
             animate={{ scale: 1, y: 0 }}
             exit={{ scale: 0.85, y: 32 }}
             transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-            className="relative flex flex-col sm:flex-row gap-6 bg-dark-800 border border-gold-500/20 rounded-2xl p-5 max-w-2xl w-full shadow-2xl"
+            className="relative flex flex-col sm:flex-row gap-6 bg-white dark:bg-dark-800 border border-gold-500/20 rounded-2xl p-5 max-w-2xl w-full shadow-2xl"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Close */}
             <button
               onClick={onClose}
-              className="absolute top-3 right-3 p-1.5 rounded-lg text-white/40 hover:text-white/80 hover:bg-white/10 transition-all z-10"
+              className="absolute top-3 right-3 p-1.5 rounded-lg text-gray-500 dark:text-white/60 hover:text-gray-900 dark:hover:text-white/90 hover:bg-gray-100 dark:hover:bg-white/10 transition-all z-10"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -81,10 +81,10 @@ export default function CardModal({ card, allCards, onClose, onNavigate }: CardM
             <div className="flex flex-col justify-between gap-4 flex-1 min-w-0">
               <div className="space-y-3 pt-1">
                 <Badge category={card.category} size="md" />
-                <h2 className="font-cinzel text-xl font-bold text-white leading-tight">
+                <h2 className="font-cinzel text-xl font-bold text-gray-900 dark:text-white leading-tight">
                   {card.name}
                 </h2>
-                <p className="text-white/30 text-xs font-mono">Card #{card.id} de 328</p>
+                <p className="text-gray-500 dark:text-white/55 text-xs font-mono">Card #{card.id} de 328</p>
               </div>
 
               <div className="space-y-3">

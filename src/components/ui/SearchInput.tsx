@@ -38,12 +38,12 @@ export default function SearchInput({
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="w-full bg-dark-700 border border-gold-500/20 text-white placeholder:text-white/30 rounded-xl pl-10 pr-10 py-2.5 text-sm focus:outline-none focus:border-gold-500/60 focus:ring-1 focus:ring-gold-500/30 transition-all"
+        className="w-full bg-gray-100 dark:bg-dark-700 border border-gray-300 dark:border-gold-500/20 text-gray-900 dark:text-white placeholder:text-gray-400 dark:placeholder:text-white/50 rounded-xl pl-10 pr-10 py-2.5 text-sm focus:outline-none focus:border-gold-500/60 focus:ring-1 focus:ring-gold-500/30 transition-all"
       />
       {value && (
         <button
           onClick={() => onChange('')}
-          className="absolute right-3 text-white/40 hover:text-white/80 transition-colors"
+          className="absolute right-3 text-gray-400 dark:text-white/60 hover:text-gray-700 dark:hover:text-white/90 transition-colors"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />

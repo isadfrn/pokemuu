@@ -18,12 +18,12 @@ export default function Hero() {
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
       {/* Background */}
-      <div className="absolute inset-0 bg-dark-900" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_40%,_rgba(20,16,30,0.9)_0%,_transparent_100%)]" />
+      <div className="absolute inset-0 bg-gray-50 dark:bg-dark-900" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_40%,_rgba(212,175,55,0.06)_0%,_transparent_100%)] dark:bg-[radial-gradient(ellipse_80%_60%_at_50%_40%,_rgba(20,16,30,0.9)_0%,_transparent_100%)]" />
 
       {/* Subtle grid lines */}
       <div
-        className="absolute inset-0 opacity-[0.03]"
+        className="absolute inset-0 opacity-[0.06] dark:opacity-[0.03]"
         style={{
           backgroundImage:
             'linear-gradient(rgba(212,175,55,1) 1px, transparent 1px), linear-gradient(90deg, rgba(212,175,55,1) 1px, transparent 1px)',
@@ -52,7 +52,7 @@ export default function Hero() {
                 }}
                 className="origin-bottom cursor-pointer"
               >
-                <div className="w-28 sm:w-32 rounded-xl overflow-hidden shadow-2xl ring-1 ring-white/10">
+                <div className="w-28 sm:w-32 rounded-xl overflow-hidden shadow-2xl ring-1 ring-black/10 dark:ring-white/10">
                   <Image
                     src={`/cards/${id}.webp`}
                     alt={`Card ${id}`}
@@ -74,17 +74,17 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="space-y-4"
         >
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gold-500/10 border border-gold-500/20 text-gold-400 text-xs font-medium tracking-widest uppercase">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gold-500/10 border border-gold-500/20 text-gold-500 dark:text-gold-400 text-xs font-medium tracking-widest uppercase">
             328 cards · Série Pokémon
           </div>
 
-          <h1 className="font-display font-black text-5xl sm:text-6xl lg:text-7xl leading-[1.05] tracking-tight text-white">
+          <h1 className="font-display font-black text-5xl sm:text-6xl lg:text-7xl leading-[1.05] tracking-tight text-gray-900 dark:text-white">
             Atlas Anatômico
             <br />
             <span className="text-gold-gradient">Veterinário</span>
           </h1>
 
-          <p className="text-white/45 text-base sm:text-lg font-light max-w-md mx-auto leading-relaxed">
+          <p className="text-gray-600 dark:text-white/70 text-base sm:text-lg font-light max-w-md mx-auto leading-relaxed">
             Bovinos · Morfofisiologia do Aparelho<br className="hidden sm:block" /> Neurolocomotor e Tegumento
           </p>
         </motion.div>
@@ -107,7 +107,7 @@ export default function Hero() {
           </Link>
           <Link
             href="#sobre"
-            className="inline-flex items-center gap-2 px-5 py-3 rounded-xl text-white/50 hover:text-white/80 text-sm font-medium transition-colors"
+            className="inline-flex items-center gap-2 px-5 py-3 rounded-xl text-gray-600 dark:text-white/70 hover:text-gray-900 dark:hover:text-white/95 text-sm font-medium transition-colors"
           >
             Sobre o projeto
           </Link>
@@ -124,7 +124,7 @@ export default function Hero() {
         <motion.div
           animate={{ y: [0, 6, 0] }}
           transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
-          className="text-white/15"
+          className="text-gray-400 dark:text-white/35"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 9l-7 7-7-7" />

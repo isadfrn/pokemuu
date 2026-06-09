@@ -86,7 +86,7 @@ export default function AtlasClient({ cards }: AtlasClientProps) {
   return (
     <div className="space-y-4">
       {/* Controls */}
-      <div className="sticky top-14 z-30 bg-dark-900/90 backdrop-blur-md border-b border-white/5 py-3 -mx-4 sm:-mx-6 px-4 sm:px-6">
+      <div className="sticky top-14 z-30 bg-white/90 dark:bg-dark-900/90 backdrop-blur-md border-b border-gray-200 dark:border-white/5 py-3 -mx-4 sm:-mx-6 px-4 sm:px-6">
         <div className="max-w-7xl mx-auto space-y-3">
           <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
             <SearchInput
@@ -94,7 +94,7 @@ export default function AtlasClient({ cards }: AtlasClientProps) {
               onChange={setQuery}
               className="w-full sm:max-w-xs"
             />
-            <span className="text-white/30 text-xs hidden sm:block">
+            <span className="text-gray-500 dark:text-white/60 text-xs hidden sm:block">
               {filteredCards.length} de {cards.length} cards
             </span>
           </div>
@@ -103,8 +103,8 @@ export default function AtlasClient({ cards }: AtlasClientProps) {
             onChange={handleCategoryChange}
             counts={counts}
           />
-          <div className="flex items-center justify-between flex-wrap gap-2 pt-1 border-t border-white/5">
-            <span className="text-white/30 text-xs sm:hidden">
+          <div className="flex items-center justify-between flex-wrap gap-2 pt-1 border-t border-gray-200 dark:border-white/5">
+            <span className="text-gray-500 dark:text-white/60 text-xs sm:hidden">
               {filteredCards.length} cards
             </span>
             <DownloadToolbar
@@ -148,7 +148,7 @@ export default function AtlasClient({ cards }: AtlasClientProps) {
               className="text-center py-24 space-y-3"
             >
               <p className="text-4xl">🔍</p>
-              <p className="text-white/50 text-sm">Nenhum card encontrado para &ldquo;{query}&rdquo;</p>
+              <p className="text-gray-600 dark:text-white/75 text-sm">Nenhum card encontrado para &ldquo;{query}&rdquo;</p>
               <button onClick={() => setQuery('')} className="text-gold-400 text-xs underline">
                 Limpar busca
               </button>

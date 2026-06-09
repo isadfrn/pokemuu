@@ -23,7 +23,7 @@ export default function AtlasPage() {
             <h1 className="font-display text-2xl sm:text-3xl font-bold text-gold-gradient">
               Atlas Anatômico
             </h1>
-            <p className="text-white/40 text-sm">
+            <p className="text-gray-500 dark:text-white/60 text-sm">
               {cards.length} cards · Bovinos · Série Pokémon
             </p>
           </div>

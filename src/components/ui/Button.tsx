@@ -13,9 +13,9 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 const variants: Record<Variant, string> = {
   gold: 'bg-gold-gradient text-dark-900 font-bold shadow-lg shadow-gold-500/20 hover:shadow-gold-500/40',
-  ghost: 'bg-white/5 text-white border border-white/10 hover:bg-white/10 hover:border-white/20',
-  danger: 'bg-red-900/40 text-red-300 border border-red-500/30 hover:bg-red-900/60',
-  outline: 'bg-transparent text-gold-400 border border-gold-500/50 hover:bg-gold-500/10 hover:border-gold-500',
+  ghost: 'bg-gray-100 text-gray-700 border border-gray-200 hover:bg-gray-200 hover:border-gray-300 dark:bg-white/5 dark:text-white dark:border-white/10 dark:hover:bg-white/10 dark:hover:border-white/20',
+  danger: 'bg-red-100 text-red-700 border border-red-200 hover:bg-red-200 dark:bg-red-900/40 dark:text-red-300 dark:border-red-500/30 dark:hover:bg-red-900/60',
+  outline: 'bg-transparent text-gold-500 border border-gold-500/50 hover:bg-gold-500/10 hover:border-gold-500 dark:text-gold-400',
 }
 
 const sizes: Record<string, string> = {

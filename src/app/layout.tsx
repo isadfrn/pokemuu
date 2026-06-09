@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import './globals.css'
+import ThemeProvider from '@/components/providers/ThemeProvider'
 
 export const metadata: Metadata = {
   title: 'Atlas Anatômico Veterinário · Bovinos',
@@ -35,8 +36,10 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="pt-BR">
-      <body className="bg-dark-900 text-white antialiased">{children}</body>
+    <html lang="pt-BR" className="dark" suppressHydrationWarning>
+      <body className="bg-white text-gray-900 dark:bg-dark-900 dark:text-white antialiased">
+        <ThemeProvider>{children}</ThemeProvider>
+      </body>
     </html>
   )
 }

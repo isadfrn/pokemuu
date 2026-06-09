@@ -76,7 +76,7 @@ export default function DownloadToolbar({
             </Button>
             <button
               onClick={onClearSelection}
-              className="text-white/30 hover:text-white/60 text-xs underline transition-colors"
+              className="text-gray-500 dark:text-white/55 hover:text-gray-800 dark:hover:text-white/80 text-xs underline transition-colors"
             >
               Limpar
             </button>
@@ -85,7 +85,7 @@ export default function DownloadToolbar({
       </AnimatePresence>
 
       {/* Divider */}
-      <div className="hidden sm:block w-px h-6 bg-white/10" />
+      <div className="hidden sm:block w-px h-6 bg-gray-200 dark:bg-white/10" />
 
       {/* Download all filtered */}
       <Button
