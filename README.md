@@ -4,117 +4,117 @@
 ![Repository size](https://img.shields.io/github/repo-size/isadfrn/pokemuu?style=flat-square)
 ![Last commit](https://img.shields.io/github/last-commit/isadfrn/pokemuu?style=flat-square)
 
-Atlas Anatômico Veterinário de Bovinos no formato de cards estilo Pokémon, desenvolvido para a disciplina de Morfofisiologia do Aparelho Neurolocomotor e Tegumento do curso de Medicina Veterinária da Unisociesc Blumenau.
+Veterinary Anatomical Atlas of Bovines in Pokémon-style card format, developed for the Morphophysiology of the Neurolocomotor System and Integument course at Unisociesc Blumenau's Veterinary Medicine program.
 
-## Sobre o Projeto
+## About the Project
 
-O **Pokémuu** é uma aplicação web que apresenta 328 cards anatômicos de bovinos organizados em quatro categorias:
+**Pokémuu** is a web application that displays 328 bovine anatomical cards organized into four categories:
 
-| Categoria    | Descrição                  |
-| ------------ | -------------------------- |
-| Músculos     | Musculatura bovina         |
-| Articulações | Articulações e suturas     |
-| Ossos        | Osteologia bovina          |
-| Especiais    | Cards gerais e panorâmicos |
+| Category | Description                 |
+| -------- | --------------------------- |
+| Muscles  | Bovine musculature          |
+| Joints   | Joints and sutures          |
+| Bones    | Bovine osteology            |
+| Special  | General and panoramic cards |
 
-### Funcionalidades
+### Features
 
-- Navegação e visualização de todos os 328 cards
-- Filtro por categoria (Músculos, Articulações, Ossos, Especiais)
-- Busca por nome do card com fuzzy search
-- Download de card individual
-- Download de todos os cards em `.zip`
-- Modo claro / escuro
-- Layout responsivo (mobile e desktop)
+- Browse and view all 328 cards
+- Filter by category (Muscles, Joints, Bones, Special)
+- Search cards by name with fuzzy search
+- Download individual cards
+- Download all cards as a `.zip` file
+- Light / dark mode
+- Responsive layout (mobile and desktop)
 
-## Tecnologias
+## Technologies
 
 - [Next.js 14](https://nextjs.org/) (App Router)
 - [React 18](https://react.dev/)
 - [TypeScript](https://www.typescriptlang.org/)
 - [Tailwind CSS](https://tailwindcss.com/)
 - [Framer Motion](https://www.framer.com/motion/)
-- [Fuse.js](https://www.fusejs.io/) — busca fuzzy
-- [JSZip](https://stuk.github.io/jszip/) — geração de arquivo `.zip`
-- [Docker](https://www.docker.com/) + [PM2](https://pm2.keymetrics.io/) — deploy
+- [Fuse.js](https://www.fusejs.io/) — fuzzy search
+- [JSZip](https://stuk.github.io/jszip/) — `.zip` file generation
+- [Docker](https://www.docker.com/) + [PM2](https://pm2.keymetrics.io/) — deployment
 
-## Requisitos
+## Requirements
 
 - [Node.js 20+](https://nodejs.org/)
 - [npm](https://www.npmjs.com/)
 
-## Instalação e Execução
+## Installation and Setup
 
-**Instalar dependências:**
+**Install dependencies:**
 
 ```bash
 npm install
 ```
 
-**Executar em modo de desenvolvimento:**
+**Run in development mode:**
 
 ```bash
 npm run dev
 ```
 
-A aplicação estará disponível em `http://localhost:3000`.
+The application will be available at `http://localhost:3000`.
 
-**Build para produção:**
+**Build for production:**
 
 ```bash
 npm run build
 npm start
 ```
 
-## Deploy com Docker
+## Deploy with Docker
 
-**Build da imagem:**
+**Build the image:**
 
 ```bash
 docker build -t pokemuu .
 ```
 
-**Executar o container:**
+**Run the container:**
 
 ```bash
 docker run -p 3000:3000 pokemuu
 ```
 
-**Com PM2 (ecosystem.config.js):**
+**With PM2 (ecosystem.config.js):**
 
 ```bash
 npm run build
 pm2 start ecosystem.config.js
 ```
 
-## Estrutura do Projeto
+## Project Structure
 
 ```
 src/
 ├── app/
-│   ├── atlas/         # Página do atlas completo
+│   ├── atlas/         # Full atlas page
 │   ├── layout.tsx
 │   └── page.tsx       # Landing page
 ├── components/
 │   ├── features/
-│   │   ├── atlas/     # Filtros, cards, modal, download
-│   │   └── landing/   # Hero, equipe, preview de categorias
-│   ├── layout/        # Header e Footer
+│   │   ├── atlas/     # Filters, cards, modal, download
+│   │   └── landing/   # Hero, team, category previews
+│   ├── layout/        # Header and Footer
 │   ├── providers/     # ThemeProvider (dark/light mode)
 │   └── ui/            # Badge, Button, SearchInput
 ├── data/
-│   └── cards.json     # Metadados dos 328 cards
+│   └── cards.json     # Metadata for all 328 cards
 ├── lib/
-│   ├── download.ts    # Lógica de download individual e em zip
-│   └── search.ts      # Configuração do Fuse.js
+│   ├── download.ts    # Individual and zip download logic
+│   └── search.ts      # Fuse.js configuration
 └── types/
-    └── card.ts        # Tipos e metadados de categorias
+    └── card.ts        # Types and category metadata
 ```
 
 ## Status
 
-Em manutenção
+Maintaining
 
-## Licença
+## License
 
 [MIT](./LICENSE)
