@@ -43,6 +43,21 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
+      - name: Sync card images to VPS
+        env:
+          VPS_SSH_KEY: ${{ secrets.VPS_SSH_KEY }}
+          VPS_USER: ${{ secrets.VPS_USER }}
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+          VPS_PORT: ${{ secrets.VPS_PORT }}
+        run: |
+          echo "$VPS_SSH_KEY" > /tmp/vps_key
+          chmod 600 /tmp/vps_key
+          rsync -az --checksum \
+            -e "ssh -i /tmp/vps_key -o StrictHostKeyChecking=no -p ${VPS_PORT:-22}" \
+            public/cards/ \
+            ${VPS_USER}@${VPS_HOST}:/var/www/pokemuu-cards/
+          rm -f /tmp/vps_key
+
       - name: Deploy on VPS
         uses: appleboy/ssh-action@v1.0.3
         with:

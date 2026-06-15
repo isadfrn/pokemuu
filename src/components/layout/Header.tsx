@@ -9,6 +9,7 @@ import { useTheme } from "@/components/providers/ThemeProvider";
 const navLinks = [
   { href: "/", label: "Início" },
   { href: "/atlas", label: "Atlas Completo" },
+  { href: "/roteiros", label: "Roteiros" },
 ];
 
 export default function Header() {
