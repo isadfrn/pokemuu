@@ -1,18 +1,19 @@
-'use client'
+"use client";
 
-import { motion } from 'framer-motion'
-import Link from 'next/link'
-import Image from 'next/image'
+import { motion } from "framer-motion";
+import Link from "next/link";
+import Image from "next/image";
+import cardsData from "@/data/cards.json";
 
-const HERO_CARDS = [1, 75, 150, 200, 300]
+const HERO_CARDS = [1, 75, 150, 200, 300];
 
 const cardTransforms = [
   { rotate: -16, x: -110, y: 18, delay: 0.05, zIndex: 1, scale: 0.8 },
-  { rotate: -7,  x: -55,  y: 6,  delay: 0.12, zIndex: 2, scale: 0.9 },
-  { rotate: 0,   x: 0,    y: 0,  delay: 0.2,  zIndex: 5, scale: 1   },
-  { rotate: 7,   x: 55,   y: 6,  delay: 0.12, zIndex: 2, scale: 0.9 },
-  { rotate: 16,  x: 110,  y: 18, delay: 0.05, zIndex: 1, scale: 0.8 },
-]
+  { rotate: -7, x: -55, y: 6, delay: 0.12, zIndex: 2, scale: 0.9 },
+  { rotate: 0, x: 0, y: 0, delay: 0.2, zIndex: 5, scale: 1 },
+  { rotate: 7, x: 55, y: 6, delay: 0.12, zIndex: 2, scale: 0.9 },
+  { rotate: 16, x: 110, y: 18, delay: 0.05, zIndex: 1, scale: 0.8 },
+];
 
 export default function Hero() {
   return (
@@ -26,8 +27,8 @@ export default function Hero() {
         className="absolute inset-0 opacity-[0.06] dark:opacity-[0.03]"
         style={{
           backgroundImage:
-            'linear-gradient(rgba(212,175,55,1) 1px, transparent 1px), linear-gradient(90deg, rgba(212,175,55,1) 1px, transparent 1px)',
-          backgroundSize: '60px 60px',
+            "linear-gradient(rgba(212,175,55,1) 1px, transparent 1px), linear-gradient(90deg, rgba(212,175,55,1) 1px, transparent 1px)",
+          backgroundSize: "60px 60px",
         }}
       />
 
@@ -35,16 +36,24 @@ export default function Hero() {
         {/* Card fan */}
         <div className="relative h-56 sm:h-64 w-full max-w-md flex items-center justify-center">
           {HERO_CARDS.map((id, i) => {
-            const t = cardTransforms[i]
+            const t = cardTransforms[i];
             return (
               <motion.div
                 key={id}
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: t.y }}
-                transition={{ duration: 0.55, delay: t.delay, ease: [0.22, 1, 0.36, 1] }}
-                whileHover={{ y: t.y - 10, zIndex: 10, transition: { duration: 0.2 } }}
+                transition={{
+                  duration: 0.55,
+                  delay: t.delay,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                whileHover={{
+                  y: t.y - 10,
+                  zIndex: 10,
+                  transition: { duration: 0.2 },
+                }}
                 style={{
-                  position: 'absolute',
+                  position: "absolute",
                   rotate: t.rotate,
                   x: t.x,
                   scale: t.scale,
@@ -63,7 +72,7 @@ export default function Hero() {
                   />
                 </div>
               </motion.div>
-            )
+            );
           })}
         </div>
 
@@ -75,7 +84,7 @@ export default function Hero() {
           className="space-y-4"
         >
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gold-500/10 border border-gold-500/20 text-gold-500 dark:text-gold-400 text-xs font-medium tracking-widest uppercase">
-            328 cards · Série Pokémon
+            {cardsData.length} cards · Estilo Pokémon
           </div>
 
           <h1 className="font-display font-black text-5xl sm:text-6xl lg:text-7xl leading-[1.05] tracking-tight text-gray-900 dark:text-white">
@@ -85,7 +94,8 @@ export default function Hero() {
           </h1>
 
           <p className="text-gray-600 dark:text-white/70 text-base sm:text-lg font-light max-w-md mx-auto leading-relaxed">
-            Bovinos · Morfofisiologia do Aparelho<br className="hidden sm:block" /> Neurolocomotor e Tegumento
+            Bovinos · Morfofisiologia do Aparelho
+            <br className="hidden sm:block" /> Neurolocomotor e Tegumento
           </p>
         </motion.div>
 
@@ -101,8 +111,18 @@ export default function Hero() {
             className="inline-flex items-center gap-2.5 px-7 py-3 rounded-xl bg-gold-500 hover:bg-gold-400 text-dark-900 font-bold text-sm tracking-wide transition-all hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-gold-500/20"
           >
             Explorar o Atlas
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M13 7l5 5-5 5M6 12h12" />
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2.5}
+                d="M13 7l5 5-5 5M6 12h12"
+              />
             </svg>
           </Link>
           <Link
@@ -123,14 +143,24 @@ export default function Hero() {
       >
         <motion.div
           animate={{ y: [0, 6, 0] }}
-          transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
+          transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
           className="text-gray-400 dark:text-white/35"
         >
-          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 9l-7 7-7-7" />
+          <svg
+            className="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={1.5}
+              d="M19 9l-7 7-7-7"
+            />
           </svg>
         </motion.div>
       </motion.div>
     </section>
-  )
+  );
 }

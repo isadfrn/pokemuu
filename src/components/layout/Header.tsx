@@ -116,7 +116,7 @@ export default function Header() {
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden overflow-hidden border-t border-gray-200 dark:border-white/5 bg-white dark:bg-dark-800/98 backdrop-blur-md"
+            className="md:hidden overflow-hidden border-t border-gray-200 dark:border-white/5 bg-white dark:bg-dark-800"
           >
             {navLinks.map((l) => (
               <Link
