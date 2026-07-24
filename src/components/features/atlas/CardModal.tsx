@@ -3,7 +3,8 @@
 import { useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
-import type { Card } from '@/types/card'
+import type { Card } from '@/domain/card'
+import { cardImage } from '@/domain/assets'
 import Badge from '@/components/ui/Badge'
 import Button from '@/components/ui/Button'
 import { downloadSingle } from '@/lib/download'
@@ -67,7 +68,7 @@ export default function CardModal({ card, allCards, onClose, onNavigate }: CardM
             <div className="flex-shrink-0 mx-auto sm:mx-0">
               <div className="relative w-48 sm:w-56 rounded-xl overflow-hidden ring-1 ring-gold-500/30 shadow-xl">
                 <Image
-                  src={`/cards/${card.id}.webp`}
+                  src={cardImage(card)}
                   alt={card.name}
                   width={280}
                   height={392}
@@ -84,7 +85,7 @@ export default function CardModal({ card, allCards, onClose, onNavigate }: CardM
                 <h2 className="font-cinzel text-xl font-bold text-gray-900 dark:text-white leading-tight">
                   {card.name}
                 </h2>
-                <p className="text-gray-500 dark:text-white/55 text-xs font-mono">Card #{card.id} de 328</p>
+                <p className="text-gray-500 dark:text-white/55 text-xs font-mono">Card #{card.id}</p>
               </div>
 
               <div className="space-y-3">

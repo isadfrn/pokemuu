@@ -8,7 +8,7 @@ import { useTheme } from "@/components/providers/ThemeProvider";
 
 const navLinks = [
   { href: "/", label: "Início" },
-  { href: "/atlas", label: "Atlas Completo" },
+  { href: "/atlas", label: "Atlas" },
   { href: "/roteiros", label: "Roteiros" },
 ];
 
@@ -30,7 +30,7 @@ export default function Header() {
               Pokémuu
             </span>
             <span className="text-gray-500 dark:text-white/55 text-[10px] tracking-widest uppercase">
-              Bovinos
+              Atlas Veterinário
             </span>
           </div>
         </Link>

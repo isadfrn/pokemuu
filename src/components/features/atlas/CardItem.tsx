@@ -2,8 +2,9 @@
 
 import { motion } from 'framer-motion'
 import Image from 'next/image'
-import type { Card } from '@/types/card'
-import { CATEGORY_META } from '@/types/card'
+import type { Card } from '@/domain/card'
+import { CATEGORY_META } from '@/domain/card'
+import { cardImage } from '@/domain/assets'
 import Badge from '@/components/ui/Badge'
 import { downloadSingle } from '@/lib/download'
 
@@ -42,7 +43,7 @@ export default function CardItem({
       {/* Image */}
       <div className="relative aspect-[5/7] overflow-hidden" onClick={() => onOpen(card)}>
         <Image
-          src={`/cards/${card.id}.webp`}
+          src={cardImage(card)}
           alt={card.name}
           fill
           sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"

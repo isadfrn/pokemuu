@@ -33,7 +33,7 @@ export default function TeamSection() {
               Morfofisiologia do Aparelho<br />Neurolocomotor e Tegumento
             </h2>
             <p className="text-gray-600 dark:text-white/65 text-sm leading-relaxed">
-              Atlas desenvolvido como material didático para a disciplina.<br />328 cards de anatomia bovina no estilo Pokémon Trading Card Game.
+              Atlas desenvolvido como material didático para a disciplina.<br />Cards de anatomia veterinária no estilo Pokémon Trading Card Game, começando pelos bovinos.
             </p>
           </div>
         </FadeUp>

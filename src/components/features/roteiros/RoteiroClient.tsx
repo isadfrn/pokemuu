@@ -1,17 +1,15 @@
 'use client'
 
 import { useState, useCallback } from 'react'
-import type { Card } from '@/types/card'
-import type { Roadmap } from '@/types/roadmap'
+import type { Card } from '@/domain/card'
 import FlashCard from './FlashCard'
 import CardModal from '@/components/features/atlas/CardModal'
 
 interface RoteiroClientProps {
-  roadmap: Roadmap
   cards: Card[]
 }
 
-export default function RoteiroClient({ roadmap, cards }: RoteiroClientProps) {
+export default function RoteiroClient({ cards }: RoteiroClientProps) {
   const [modalCard, setModalCard] = useState<Card | null>(null)
 
   const handleOpen = useCallback((card: Card) => setModalCard(card), [])
@@ -21,7 +19,7 @@ export default function RoteiroClient({ roadmap, cards }: RoteiroClientProps) {
     <>
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3">
         {cards.map((card, i) => (
-          <FlashCard key={card.id} card={card} index={i} onOpen={handleOpen} />
+          <FlashCard key={`${card.animal}-${card.id}`} card={card} index={i} onOpen={handleOpen} />
         ))}
       </div>
 

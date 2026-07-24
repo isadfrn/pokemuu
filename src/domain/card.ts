@@ -1,13 +1,34 @@
+/**
+ * Card domain model.
+ *
+ * A card is a single Pokémon-style anatomical card. Cards are authored per
+ * animal (see `src/data/animals/<id>/cards.json`) without repeating the animal
+ * on every entry — the raw shape is {@link RawCard}. The services layer tags
+ * each raw card with its owning animal to produce a fully-resolved {@link Card}.
+ */
+
+import type { AnimalId } from './animal'
+
+/** Anatomical category shared by every animal. */
 export type CardCategory = 'musculos' | 'articulacoes' | 'ossos' | 'especiais'
 
-export interface Card {
+/** Filter that also includes the "all" pseudo-category. */
+export type CardFilter = CardCategory | 'todos'
+
+/** Raw card as stored in each animal's `cards.json` — animal is implicit. */
+export interface RawCard {
   id: number
   name: string
   category: CardCategory
 }
 
+/** Fully-resolved card, tagged with the animal it belongs to. */
+export interface Card extends RawCard {
+  animal: AnimalId
+}
+
 export interface CategoryMeta {
-  id: CardCategory | 'todos'
+  id: CardFilter
   label: string
   color: string
   bgColor: string
@@ -16,7 +37,7 @@ export interface CategoryMeta {
   icon: string
 }
 
-export const CATEGORY_META: Record<CardCategory | 'todos', CategoryMeta> = {
+export const CATEGORY_META: Record<CardFilter, CategoryMeta> = {
   todos: {
     id: 'todos',
     label: 'Todos',
@@ -63,3 +84,12 @@ export const CATEGORY_META: Record<CardCategory | 'todos', CategoryMeta> = {
     icon: '⭐',
   },
 }
+
+/** Ordered list of category filters for the atlas filter bar. */
+export const CATEGORY_FILTERS: CardFilter[] = [
+  'todos',
+  'musculos',
+  'articulacoes',
+  'ossos',
+  'especiais',
+]

@@ -1,4 +1,5 @@
-import type { Card } from '@/types/card'
+import type { Card } from '@/domain/card'
+import { cardImage } from '@/domain/assets'
 
 function toFilename(name: string): string {
   return name
@@ -11,7 +12,7 @@ function toFilename(name: string): string {
 
 export function downloadSingle(card: Card): void {
   const link = document.createElement('a')
-  link.href = `/cards/${card.id}.webp`
+  link.href = cardImage(card)
   link.download = `${card.id}-${toFilename(card.name)}.webp`
   document.body.appendChild(link)
   link.click()
@@ -20,18 +21,18 @@ export function downloadSingle(card: Card): void {
 
 export async function downloadMultiple(
   cards: Card[],
-  zipName = 'atlas-anatomico-bovino.zip',
+  zipName = 'pokemuu-cards.zip',
   onProgress?: (pct: number) => void,
 ): Promise<void> {
   const { default: JSZip } = await import('jszip')
 
   const zip = new JSZip()
-  const folder = zip.folder('atlas-anatomico')!
+  const folder = zip.folder('pokemuu')!
 
   let done = 0
   await Promise.all(
     cards.map(async (card) => {
-      const res = await fetch(`/cards/${card.id}.webp`)
+      const res = await fetch(cardImage(card))
       const blob = await res.blob()
       folder.file(`${card.id}-${toFilename(card.name)}.webp`, blob)
       done++

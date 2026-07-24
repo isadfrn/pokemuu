@@ -1,29 +1,30 @@
 'use client'
 
-import { useState, useMemo, useCallback, useEffect } from 'react'
+import { useState, useMemo, useCallback } from 'react'
 import { useSearchParams, useRouter } from 'next/navigation'
 import { AnimatePresence, motion } from 'framer-motion'
-import type { Card, CardCategory } from '@/types/card'
-import { createSearchIndex } from '@/lib/search'
+import type { Animal } from '@/domain/animal'
+import type { Card, CardFilter } from '@/domain/card'
+import { atlasHref } from '@/domain/assets'
+import { createSearchIndex } from '@/services/search'
 import SearchInput from '@/components/ui/SearchInput'
 import CategoryFilter from './CategoryFilter'
 import CardItem from './CardItem'
 import CardModal from './CardModal'
 import DownloadToolbar from './DownloadToolbar'
 
-type FilterValue = CardCategory | 'todos'
-
 interface AtlasClientProps {
+  animal: Animal
   cards: Card[]
 }
 
-export default function AtlasClient({ cards }: AtlasClientProps) {
+export default function AtlasClient({ animal, cards }: AtlasClientProps) {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const initCategory = (searchParams.get('category') as FilterValue) ?? 'todos'
+  const initCategory = (searchParams.get('category') as CardFilter) ?? 'todos'
 
   const [query, setQuery] = useState('')
-  const [activeCategory, setActiveCategory] = useState<FilterValue>(initCategory)
+  const [activeCategory, setActiveCategory] = useState<CardFilter>(initCategory)
   const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set())
   const [selectMode, setSelectMode] = useState(false)
   const [modalCard, setModalCard] = useState<Card | null>(null)
@@ -44,10 +45,6 @@ export default function AtlasClient({ cards }: AtlasClientProps) {
   }, [query, activeCategory, cards, fuse])
 
   const counts = useMemo(() => {
-    const base = cards.reduce(
-      (acc, c) => { acc[c.category] = (acc[c.category] ?? 0) + 1; return acc },
-      {} as Record<string, number>,
-    )
     const filtered = query.trim().length >= 2
       ? fuse.search(query).map((r) => r.item)
       : cards
@@ -61,14 +58,14 @@ export default function AtlasClient({ cards }: AtlasClientProps) {
       articulacoes: filteredByQuery.articulacoes ?? 0,
       ossos: filteredByQuery.ossos ?? 0,
       especiais: filteredByQuery.especiais ?? 0,
-    } as Record<FilterValue, number>
+    } as Record<CardFilter, number>
   }, [cards, fuse, query])
 
-  const handleCategoryChange = useCallback((cat: FilterValue) => {
+  const handleCategoryChange = useCallback((cat: CardFilter) => {
     setActiveCategory(cat)
     const params = cat !== 'todos' ? `?category=${cat}` : ''
-    router.replace(`/atlas${params}`, { scroll: false })
-  }, [router])
+    router.replace(`${atlasHref(animal.id)}${params}`, { scroll: false })
+  }, [router, animal.id])
 
   const handleSelect = useCallback((id: number) => {
     setSelectedIds((prev) => {
@@ -108,6 +105,7 @@ export default function AtlasClient({ cards }: AtlasClientProps) {
               {filteredCards.length} cards
             </span>
             <DownloadToolbar
+              animal={animal}
               filteredCards={filteredCards}
               selectedIds={selectedIds}
               selectMode={selectMode}

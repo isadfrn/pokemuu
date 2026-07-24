@@ -3,7 +3,8 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import { motion } from 'framer-motion'
-import type { Card } from '@/types/card'
+import type { Card } from '@/domain/card'
+import { cardImage, CARD_BACK_IMAGE } from '@/domain/assets'
 
 interface FlashCardProps {
   card: Card
@@ -36,7 +37,7 @@ export default function FlashCard({ card, index, onOpen }: FlashCardProps) {
           style={{ backfaceVisibility: 'hidden' }}
         >
           <Image
-            src="/background.webp"
+            src={CARD_BACK_IMAGE}
             alt="Card virado"
             fill
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
@@ -58,7 +59,7 @@ export default function FlashCard({ card, index, onOpen }: FlashCardProps) {
           }}
         >
           <Image
-            src={`/cards/${card.id}.webp`}
+            src={cardImage(card)}
             alt={card.name}
             fill
             sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"

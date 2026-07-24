@@ -1,11 +1,18 @@
-"use client";
+'use client'
 
-import { motion } from "framer-motion";
-import Link from "next/link";
-import Image from "next/image";
-import cardsData from "@/data/cards.json";
+import { motion } from 'framer-motion'
+import Link from 'next/link'
+import Image from 'next/image'
+import { atlasHubHref } from '@/domain/assets'
 
-const HERO_CARDS = [1, 75, 150, 200, 300];
+interface HeroProps {
+  /** Card images shown in the fan (flagship animal). */
+  previewImages: string[]
+  /** Total number of cards across all available animals. */
+  totalCards: number
+  /** Number of available animals. */
+  animalCount: number
+}
 
 const cardTransforms = [
   { rotate: -16, x: -110, y: 18, delay: 0.05, zIndex: 1, scale: 0.8 },
@@ -13,9 +20,9 @@ const cardTransforms = [
   { rotate: 0, x: 0, y: 0, delay: 0.2, zIndex: 5, scale: 1 },
   { rotate: 7, x: 55, y: 6, delay: 0.12, zIndex: 2, scale: 0.9 },
   { rotate: 16, x: 110, y: 18, delay: 0.05, zIndex: 1, scale: 0.8 },
-];
+]
 
-export default function Hero() {
+export default function Hero({ previewImages, totalCards, animalCount }: HeroProps) {
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
       {/* Background */}
@@ -35,11 +42,11 @@ export default function Hero() {
       <div className="relative z-10 flex flex-col items-center gap-10 px-4 text-center max-w-3xl mx-auto w-full">
         {/* Card fan */}
         <div className="relative h-56 sm:h-64 w-full max-w-md flex items-center justify-center">
-          {HERO_CARDS.map((id, i) => {
-            const t = cardTransforms[i];
+          {previewImages.map((src, i) => {
+            const t = cardTransforms[i] ?? cardTransforms[cardTransforms.length - 1]
             return (
               <motion.div
-                key={id}
+                key={src}
                 initial={{ opacity: 0, y: 50 }}
                 animate={{ opacity: 1, y: t.y }}
                 transition={{
@@ -63,8 +70,8 @@ export default function Hero() {
               >
                 <div className="w-28 sm:w-32 rounded-xl overflow-hidden shadow-2xl ring-1 ring-black/10 dark:ring-white/10">
                   <Image
-                    src={`/cards/${id}.webp`}
-                    alt={`Card ${id}`}
+                    src={src}
+                    alt={`Card ${i + 1}`}
                     width={180}
                     height={252}
                     className="w-full h-auto"
@@ -84,7 +91,7 @@ export default function Hero() {
           className="space-y-4"
         >
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-gold-500/10 border border-gold-500/20 text-gold-500 dark:text-gold-400 text-xs font-medium tracking-widest uppercase">
-            {cardsData.length} cards · Estilo Pokémon
+            {totalCards} cards · Estilo Pokémon
           </div>
 
           <h1 className="font-display font-black text-5xl sm:text-6xl lg:text-7xl leading-[1.05] tracking-tight text-gray-900 dark:text-white">
@@ -94,8 +101,8 @@ export default function Hero() {
           </h1>
 
           <p className="text-gray-600 dark:text-white/70 text-base sm:text-lg font-light max-w-md mx-auto leading-relaxed">
-            Bovinos · Morfofisiologia do Aparelho
-            <br className="hidden sm:block" /> Neurolocomotor e Tegumento
+            Cards de anatomia veterinária no estilo Pokémon
+            <br className="hidden sm:block" /> — começando pelos bovinos, com novos animais a caminho.
           </p>
         </motion.div>
 
@@ -107,10 +114,10 @@ export default function Hero() {
           className="flex flex-col sm:flex-row items-center gap-3"
         >
           <Link
-            href="/atlas"
+            href={atlasHubHref}
             className="inline-flex items-center gap-2.5 px-7 py-3 rounded-xl bg-gold-500 hover:bg-gold-400 text-dark-900 font-bold text-sm tracking-wide transition-all hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-gold-500/20"
           >
-            Explorar o Atlas
+            Escolher um animal
             <svg
               className="w-4 h-4"
               fill="none"

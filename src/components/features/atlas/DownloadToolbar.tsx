@@ -3,10 +3,12 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Button from '@/components/ui/Button'
-import type { Card } from '@/types/card'
+import type { Animal } from '@/domain/animal'
+import type { Card } from '@/domain/card'
 import { downloadMultiple } from '@/lib/download'
 
 interface DownloadToolbarProps {
+  animal: Animal
   filteredCards: Card[]
   selectedIds: Set<number>
   selectMode: boolean
@@ -16,6 +18,7 @@ interface DownloadToolbarProps {
 }
 
 export default function DownloadToolbar({
+  animal,
   filteredCards,
   selectedIds,
   selectMode,
@@ -67,7 +70,7 @@ export default function DownloadToolbar({
               variant="outline"
               size="sm"
               loading={progress !== null}
-              onClick={() => handleDownload(selectedCards, `atlas-selecionados-${selectedIds.size}.zip`)}
+              onClick={() => handleDownload(selectedCards, `${animal.id}-selecionados-${selectedIds.size}.zip`)}
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
@@ -92,7 +95,7 @@ export default function DownloadToolbar({
         variant="ghost"
         size="sm"
         loading={progress !== null && !selectMode}
-        onClick={() => handleDownload(filteredCards, `atlas-${filteredCards.length}-cards.zip`)}
+        onClick={() => handleDownload(filteredCards, `${animal.id}-${filteredCards.length}-cards.zip`)}
       >
         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />

@@ -1,5 +1,5 @@
-import type { CardCategory } from '@/types/card'
-import { CATEGORY_META } from '@/types/card'
+import type { CardCategory } from '@/domain/card'
+import { CATEGORY_META } from '@/domain/card'
 
 interface BadgeProps {
   category: CardCategory

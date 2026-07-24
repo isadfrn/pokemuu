@@ -3,12 +3,13 @@ import './globals.css'
 import ThemeProvider from '@/components/providers/ThemeProvider'
 
 export const metadata: Metadata = {
-  title: 'Atlas Anatômico Veterinário · Bovinos',
+  title: 'Pokémuu · Atlas Anatômico Veterinário',
   description:
-    'Atlas Anatômico Veterinário de Bovinos — Série Pokémon. Morfofisiologia do Aparelho Neurolocomotor e Tegumento dos Animais · Medicina Veterinária · Unisociesc Blumenau.',
+    'Pokémuu — Atlas Anatômico Veterinário em cards estilo Pokémon. Anatomia de múltiplos animais, começando pelos bovinos · Medicina Veterinária · Unisociesc Blumenau.',
   keywords: [
     'atlas anatômico',
     'veterinária',
+    'anatomia animal',
     'bovinos',
     'morfofisiologia',
     'músculos',
@@ -22,8 +23,8 @@ export const metadata: Metadata = {
     apple: '/favicon.svg',
   },
   openGraph: {
-    title: 'Atlas Anatômico Veterinário · Bovinos',
-    description: '328 cards estilo Pokémon de anatomia bovina.',
+    title: 'Pokémuu · Atlas Anatômico Veterinário',
+    description: 'Cards estilo Pokémon de anatomia veterinária, começando pelos bovinos.',
     type: 'website',
   },
 }

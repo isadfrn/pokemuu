@@ -5,7 +5,7 @@ export default function Footer() {
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="space-y-0.5 text-center sm:text-left">
             <p className="text-gray-800 dark:text-white/80 font-display font-semibold text-base">
-              Atlas Anatômico Veterinário · Bovinos
+              Pokémuu · Atlas Anatômico Veterinário
             </p>
             <p className="text-gray-500 dark:text-white/60 text-sm">
               Medicina Veterinária · Unisociesc Blumenau
