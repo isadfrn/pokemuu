@@ -1,23 +1,19 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import type { CardCategory } from '@/types/card'
-import { CATEGORY_META } from '@/types/card'
-
-type FilterValue = CardCategory | 'todos'
+import type { CardFilter } from '@/domain/card'
+import { CATEGORY_META, CATEGORY_FILTERS } from '@/domain/card'
 
 interface CategoryFilterProps {
-  active: FilterValue
-  onChange: (v: FilterValue) => void
-  counts: Record<FilterValue, number>
+  active: CardFilter
+  onChange: (v: CardFilter) => void
+  counts: Record<CardFilter, number>
 }
-
-const ALL: FilterValue[] = ['todos', 'musculos', 'articulacoes', 'ossos', 'especiais']
 
 export default function CategoryFilter({ active, onChange, counts }: CategoryFilterProps) {
   return (
     <div className="flex flex-wrap gap-2">
-      {ALL.map((cat) => {
+      {CATEGORY_FILTERS.map((cat) => {
         const meta = CATEGORY_META[cat]
         const isActive = active === cat
         return (
@@ -40,7 +36,9 @@ export default function CategoryFilter({ active, onChange, counts }: CategoryFil
             )}
             <span className="relative">{meta.icon}</span>
             <span className="relative">{meta.label}</span>
-            <span className={`relative text-[10px] px-1.5 py-0.5 rounded-full ${isActive ? 'bg-white/20' : 'bg-gray-200 dark:bg-white/10'}`}>
+            <span
+              className={`relative text-[10px] px-1.5 py-0.5 rounded-full ${isActive ? 'bg-white/20' : 'bg-gray-200 dark:bg-white/10'}`}
+            >
               {counts[cat]}
             </span>
           </motion.button>

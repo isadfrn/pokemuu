@@ -2,8 +2,9 @@
 
 import { motion } from 'framer-motion'
 import Image from 'next/image'
-import type { Card } from '@/types/card'
-import { CATEGORY_META } from '@/types/card'
+import type { Card } from '@/domain/card'
+import { CATEGORY_META } from '@/domain/card'
+import { cardImage } from '@/domain/assets'
 import Badge from '@/components/ui/Badge'
 import { downloadSingle } from '@/lib/download'
 
@@ -37,12 +38,23 @@ export default function CardItem({
           ? `${meta.borderColor} ring-2 ring-offset-1 ring-offset-white dark:ring-offset-dark-900`
           : 'border-gray-200 dark:border-white/10 hover:border-gray-300 dark:hover:border-white/20'
       }`}
-      style={selected ? { '--tw-ring-color': meta.glowColor } as React.CSSProperties : undefined}
+      style={selected ? ({ '--tw-ring-color': meta.glowColor } as React.CSSProperties) : undefined}
     >
-      {/* Image */}
-      <div className="relative aspect-[5/7] overflow-hidden" onClick={() => onOpen(card)}>
+      <div
+        className="relative aspect-[5/7] overflow-hidden"
+        role="button"
+        tabIndex={0}
+        aria-label={`Abrir card ${card.name}`}
+        onClick={() => onOpen(card)}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault()
+            onOpen(card)
+          }
+        }}
+      >
         <Image
-          src={`/cards/${card.id}.webp`}
+          src={cardImage(card)}
           alt={card.name}
           fill
           sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
@@ -50,54 +62,91 @@ export default function CardItem({
           loading="lazy"
         />
 
-        {/* Selection overlay */}
         {(selectMode || selected) && (
           <div
             className={`absolute inset-0 transition-colors ${selected ? 'bg-gold-500/10' : 'bg-transparent hover:bg-black/5'}`}
-            onClick={(e) => { e.stopPropagation(); onSelect(card.id) }}
+            onClick={(e) => {
+              e.stopPropagation()
+              onSelect(card.id)
+            }}
           />
         )}
 
-        {/* Checkbox */}
         {(selectMode || selected) && (
           <div
             className="absolute top-2 left-2 z-10"
-            onClick={(e) => { e.stopPropagation(); onSelect(card.id) }}
+            role="checkbox"
+            aria-checked={selected}
+            aria-label={`Selecionar card ${card.name}`}
+            tabIndex={0}
+            onClick={(e) => {
+              e.stopPropagation()
+              onSelect(card.id)
+            }}
+            onKeyDown={(e) => {
+              if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault()
+                e.stopPropagation()
+                onSelect(card.id)
+              }
+            }}
           >
-            <div className={`w-5 h-5 rounded-md border-2 flex items-center justify-center transition-all ${
-              selected ? 'bg-gold-500 border-gold-500' : 'bg-white/80 dark:bg-dark-900/70 border-gray-400 dark:border-white/40 hover:border-gold-400'
-            }`}>
+            <div
+              className={`w-5 h-5 rounded-md border-2 flex items-center justify-center transition-all ${
+                selected
+                  ? 'bg-gold-500 border-gold-500'
+                  : 'bg-white/80 dark:bg-dark-900/70 border-gray-400 dark:border-white/40 hover:border-gold-400'
+              }`}
+            >
               {selected && (
-                <svg className="w-3 h-3 text-dark-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                <svg
+                  className="w-3 h-3 text-dark-900"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={3}
+                    d="M5 13l4 4L19 7"
+                  />
                 </svg>
               )}
             </div>
           </div>
         )}
 
-        {/* Download button on hover */}
         <motion.button
           initial={{ opacity: 0 }}
           whileHover={{ scale: 1.1 }}
-          className="absolute top-2 right-2 z-10 p-1.5 rounded-lg bg-black/50 dark:bg-dark-900/80 text-white/80 hover:text-gold-400 hover:bg-black/70 dark:hover:bg-dark-900 opacity-0 group-hover:opacity-100 transition-all"
-          onClick={(e) => { e.stopPropagation(); downloadSingle(card) }}
+          className="absolute top-2 right-2 z-10 p-1.5 rounded-lg bg-black/50 dark:bg-dark-900/80 text-white/80 hover:text-gold-400 hover:bg-black/70 dark:hover:bg-dark-900 opacity-0 group-hover:opacity-100 focus-visible:opacity-100 transition-all"
+          onClick={(e) => {
+            e.stopPropagation()
+            downloadSingle(card)
+          }}
           title="Baixar card"
+          aria-label={`Baixar card ${card.name}`}
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+            />
           </svg>
         </motion.button>
 
-        {/* Card number */}
         <div className="absolute bottom-2 right-2 text-[10px] font-mono text-white/80 bg-black/50 px-1.5 py-0.5 rounded">
           #{card.id}
         </div>
       </div>
 
-      {/* Info */}
       <div className="p-2.5 space-y-1">
-        <p className="text-gray-900 dark:text-white/90 text-xs font-medium leading-tight line-clamp-2">{card.name}</p>
+        <p className="text-gray-900 dark:text-white/90 text-xs font-medium leading-tight line-clamp-2">
+          {card.name}
+        </p>
         <Badge category={card.category} />
       </div>
     </motion.div>

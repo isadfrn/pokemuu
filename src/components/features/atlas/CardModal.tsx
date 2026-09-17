@@ -1,9 +1,10 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
-import type { Card } from '@/types/card'
+import type { Card } from '@/domain/card'
+import { cardImage } from '@/domain/assets'
 import Badge from '@/components/ui/Badge'
 import Button from '@/components/ui/Button'
 import { downloadSingle } from '@/lib/download'
@@ -16,6 +17,7 @@ interface CardModalProps {
 }
 
 export default function CardModal({ card, allCards, onClose, onNavigate }: CardModalProps) {
+  const dialogRef = useRef<HTMLDivElement>(null)
   const idx = card ? allCards.findIndex((c) => c.id === card.id) : -1
   const prev = idx > 0 ? allCards[idx - 1] : null
   const next = idx < allCards.length - 1 ? allCards[idx + 1] : null
@@ -25,6 +27,21 @@ export default function CardModal({ card, allCards, onClose, onNavigate }: CardM
       if (e.key === 'Escape') onClose()
       if (e.key === 'ArrowLeft' && prev) onNavigate(prev)
       if (e.key === 'ArrowRight' && next) onNavigate(next)
+      if (e.key === 'Tab' && dialogRef.current) {
+        const focusable = dialogRef.current.querySelectorAll<HTMLElement>(
+          'button:not([disabled]), [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+        )
+        if (focusable.length === 0) return
+        const first = focusable[0]
+        const last = focusable[focusable.length - 1]
+        if (e.shiftKey && document.activeElement === first) {
+          e.preventDefault()
+          last.focus()
+        } else if (!e.shiftKey && document.activeElement === last) {
+          e.preventDefault()
+          first.focus()
+        }
+      }
     }
     document.addEventListener('keydown', handler)
     return () => document.removeEventListener('keydown', handler)
@@ -32,7 +49,13 @@ export default function CardModal({ card, allCards, onClose, onNavigate }: CardM
 
   useEffect(() => {
     document.body.style.overflow = card ? 'hidden' : ''
-    return () => { document.body.style.overflow = '' }
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [card])
+
+  useEffect(() => {
+    if (card) dialogRef.current?.focus()
   }, [card])
 
   return (
@@ -46,28 +69,37 @@ export default function CardModal({ card, allCards, onClose, onNavigate }: CardM
           onClick={onClose}
         >
           <motion.div
+            ref={dialogRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label={`Card ${card.name}`}
+            tabIndex={-1}
             initial={{ scale: 0.85, y: 32 }}
             animate={{ scale: 1, y: 0 }}
             exit={{ scale: 0.85, y: 32 }}
             transition={{ type: 'spring', stiffness: 380, damping: 30 }}
-            className="relative flex flex-col sm:flex-row gap-6 bg-white dark:bg-dark-800 border border-gold-500/20 rounded-2xl p-5 max-w-2xl w-full shadow-2xl"
+            className="relative flex flex-col sm:flex-row gap-6 bg-white dark:bg-dark-800 border border-gold-500/20 rounded-2xl p-5 max-w-2xl w-full shadow-2xl outline-none"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Close */}
             <button
               onClick={onClose}
+              aria-label="Fechar"
               className="absolute top-3 right-3 p-1.5 rounded-lg text-gray-500 dark:text-white/60 hover:text-gray-900 dark:hover:text-white/90 hover:bg-gray-100 dark:hover:bg-white/10 transition-all z-10"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
               </svg>
             </button>
 
-            {/* Card image */}
             <div className="flex-shrink-0 mx-auto sm:mx-0">
               <div className="relative w-48 sm:w-56 rounded-xl overflow-hidden ring-1 ring-gold-500/30 shadow-xl">
                 <Image
-                  src={`/cards/${card.id}.webp`}
+                  src={cardImage(card)}
                   alt={card.name}
                   width={280}
                   height={392}
@@ -77,14 +109,15 @@ export default function CardModal({ card, allCards, onClose, onNavigate }: CardM
               </div>
             </div>
 
-            {/* Info */}
             <div className="flex flex-col justify-between gap-4 flex-1 min-w-0">
               <div className="space-y-3 pt-1">
                 <Badge category={card.category} size="md" />
                 <h2 className="font-cinzel text-xl font-bold text-gray-900 dark:text-white leading-tight">
                   {card.name}
                 </h2>
-                <p className="text-gray-500 dark:text-white/55 text-xs font-mono">Card #{card.id} de 328</p>
+                <p className="text-gray-500 dark:text-white/55 text-xs font-mono">
+                  Card #{card.id}
+                </p>
               </div>
 
               <div className="space-y-3">
@@ -95,12 +128,16 @@ export default function CardModal({ card, allCards, onClose, onNavigate }: CardM
                   onClick={() => downloadSingle(card)}
                 >
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+                    />
                   </svg>
                   Baixar imagem
                 </Button>
 
-                {/* Navigation */}
                 <div className="flex gap-2">
                   <Button
                     variant="ghost"
@@ -110,7 +147,12 @@ export default function CardModal({ card, allCards, onClose, onNavigate }: CardM
                     onClick={() => prev && onNavigate(prev)}
                   >
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M15 19l-7-7 7-7"
+                      />
                     </svg>
                     Anterior
                   </Button>
@@ -123,7 +165,12 @@ export default function CardModal({ card, allCards, onClose, onNavigate }: CardM
                   >
                     Próximo
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 5l7 7-7 7"
+                      />
                     </svg>
                   </Button>
                 </div>

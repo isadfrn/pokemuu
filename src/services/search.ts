@@ -1,5 +1,5 @@
 import Fuse from 'fuse.js'
-import type { Card } from '@/types/card'
+import type { Card } from '@/domain/card'
 
 export function createSearchIndex(cards: Card[]): Fuse<Card> {
   return new Fuse(cards, {
