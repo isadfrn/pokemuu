@@ -24,44 +24,58 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Scrollbar — dark */
-:root:is(.dark) ::-webkit-scrollbar-track { background: #0D0912; }
-:root:is(.dark) ::-webkit-scrollbar-thumb { background: #D4AF37; }
-
-/* Scrollbar */
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: #f3f4f6; }
-::-webkit-scrollbar-thumb { background: #D4AF37; border-radius: 3px; }
-
-/* Selection */
-::selection {
-  background: rgba(212, 175, 55, 0.3);
-  color: #F5D87B;
+:root:is(.dark) ::-webkit-scrollbar-track {
+  background: #0d0912;
+}
+:root:is(.dark) ::-webkit-scrollbar-thumb {
+  background: #d4af37;
 }
 
-/* Gold text gradient — static, no animation */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f3f4f6;
+}
+::-webkit-scrollbar-thumb {
+  background: #d4af37;
+  border-radius: 3px;
+}
+
+::selection {
+  background: rgba(212, 175, 55, 0.3);
+  color: #f5d87b;
+}
+
 .text-gold-gradient {
-  background: linear-gradient(135deg, #B8960C 0%, #D4AF37 40%, #E8C14A 70%, #D4AF37 100%);
+  background: linear-gradient(135deg, #b8960c 0%, #d4af37 40%, #e8c14a 70%, #d4af37 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-/* Card hover glow */
-.card-hover-musculos:hover {
-  box-shadow: 0 0 24px rgba(220, 38, 38, 0.4), 0 0 8px rgba(220, 38, 38, 0.2);
+.card-hover-muscles:hover {
+  box-shadow:
+    0 0 24px rgba(220, 38, 38, 0.4),
+    0 0 8px rgba(220, 38, 38, 0.2);
 }
-.card-hover-articulacoes:hover {
-  box-shadow: 0 0 24px rgba(5, 150, 105, 0.4), 0 0 8px rgba(5, 150, 105, 0.2);
+.card-hover-joints:hover {
+  box-shadow:
+    0 0 24px rgba(5, 150, 105, 0.4),
+    0 0 8px rgba(5, 150, 105, 0.2);
 }
-.card-hover-ossos:hover {
-  box-shadow: 0 0 24px rgba(147, 51, 234, 0.4), 0 0 8px rgba(147, 51, 234, 0.2);
+.card-hover-bones:hover {
+  box-shadow:
+    0 0 24px rgba(147, 51, 234, 0.4),
+    0 0 8px rgba(147, 51, 234, 0.2);
 }
-.card-hover-especiais:hover {
-  box-shadow: 0 0 24px rgba(217, 119, 6, 0.4), 0 0 8px rgba(212, 175, 55, 0.2);
+.card-hover-special:hover {
+  box-shadow:
+    0 0 24px rgba(217, 119, 6, 0.4),
+    0 0 8px rgba(212, 175, 55, 0.2);
 }
 
-/* Noise texture overlay */
 .noise::before {
   content: '';
   position: absolute;

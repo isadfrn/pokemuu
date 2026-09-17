@@ -22,32 +22,34 @@ export default function TeamSection() {
   return (
     <section id="sobre" className="py-24 px-4 sm:px-6 bg-gray-50 dark:bg-dark-800/30">
       <div className="max-w-5xl mx-auto space-y-20">
-
-        {/* Course header */}
         <FadeUp delay={0}>
           <div className="text-center space-y-4 max-w-2xl mx-auto">
             <p className="text-gold-500 text-xs font-semibold tracking-[0.2em] uppercase">
               Medicina Veterinária · Unisociesc · Blumenau
             </p>
             <h2 className="font-display font-bold text-2xl sm:text-3xl lg:text-4xl text-gray-900 dark:text-white leading-snug">
-              Morfofisiologia do Aparelho<br />Neurolocomotor e Tegumento
+              Morfofisiologia do Aparelho
+              <br />
+              Neurolocomotor e Tegumento
             </h2>
             <p className="text-gray-600 dark:text-white/65 text-sm leading-relaxed">
-              Atlas desenvolvido como material didático para a disciplina.<br />328 cards de anatomia bovina no estilo Pokémon Trading Card Game.
+              Atlas desenvolvido como material didático para a disciplina.
+              <br />
+              Cards de anatomia veterinária no estilo Pokémon Trading Card Game, começando pelos
+              bovinos.
             </p>
           </div>
         </FadeUp>
 
-        {/* Divider */}
         <div className="flex items-center gap-4">
           <div className="flex-1 h-px bg-gray-200 dark:bg-white/5" />
-          <span className="text-gray-400 dark:text-white/40 text-xs tracking-widest uppercase">Equipe</span>
+          <span className="text-gray-400 dark:text-white/40 text-xs tracking-widest uppercase">
+            Equipe
+          </span>
           <div className="flex-1 h-px bg-gray-200 dark:bg-white/5" />
         </div>
 
         <div className="grid md:grid-cols-2 gap-10 lg:gap-16">
-
-          {/* Students */}
           <FadeUp delay={0.05}>
             <div className="space-y-6">
               <div className="space-y-1">
@@ -69,14 +71,15 @@ export default function TeamSection() {
                     <div className="w-8 h-8 rounded-lg bg-gold-500/8 border border-gold-500/15 flex items-center justify-center text-gold-400 text-sm font-semibold flex-shrink-0 group-hover:bg-gold-500/15 transition-colors">
                       {name[0]}
                     </div>
-                    <span className="text-gray-800 dark:text-white/90 text-sm font-medium">{name}</span>
+                    <span className="text-gray-800 dark:text-white/90 text-sm font-medium">
+                      {name}
+                    </span>
                   </motion.div>
                 ))}
               </div>
             </div>
           </FadeUp>
 
-          {/* Professors */}
           <FadeUp delay={0.1}>
             <div className="space-y-6">
               <div className="space-y-1">
@@ -101,7 +104,6 @@ export default function TeamSection() {
                 ))}
               </div>
 
-              {/* University badge */}
               <motion.div
                 initial={{ opacity: 0 }}
                 whileInView={{ opacity: 1 }}
@@ -114,13 +116,14 @@ export default function TeamSection() {
                 </div>
                 <div>
                   <p className="text-gold-400 font-semibold text-sm">Unisociesc</p>
-                  <p className="text-gray-500 dark:text-white/60 text-[11px]">Centro Universitário Sociesc · Blumenau</p>
+                  <p className="text-gray-500 dark:text-white/60 text-[11px]">
+                    Centro Universitário Sociesc · Blumenau
+                  </p>
                 </div>
               </motion.div>
             </div>
           </FadeUp>
         </div>
-
       </div>
     </section>
   )

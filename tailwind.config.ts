@@ -24,22 +24,22 @@ const config: Config = {
           600: '#1C1728',
           500: '#251F35',
         },
-        musculos: {
+        muscles: {
           light: '#F87171',
           DEFAULT: '#DC2626',
           dark: '#7F1D1D',
         },
-        articulacoes: {
+        joints: {
           light: '#34D399',
           DEFAULT: '#059669',
           dark: '#064E3B',
         },
-        ossos: {
+        bones: {
           light: '#C084FC',
           DEFAULT: '#9333EA',
           dark: '#3B0764',
         },
-        especiais: {
+        special: {
           light: '#FDE68A',
           DEFAULT: '#D97706',
           dark: '#451A03',
@@ -76,12 +76,17 @@ const config: Config = {
         'pulse-gold': 'pulse_gold 2s ease-in-out infinite',
       },
       backgroundImage: {
-        'gold-gradient': 'linear-gradient(135deg, #8B6C0A 0%, #D4AF37 40%, #F5D87B 60%, #D4AF37 100%)',
+        'gold-gradient':
+          'linear-gradient(135deg, #8B6C0A 0%, #D4AF37 40%, #F5D87B 60%, #D4AF37 100%)',
         'hero-gradient': 'radial-gradient(ellipse at center, #14101E 0%, #06040A 70%)',
-        'card-glow-musculos': 'radial-gradient(circle at center, rgba(220,38,38,0.15) 0%, transparent 70%)',
-        'card-glow-articulacoes': 'radial-gradient(circle at center, rgba(5,150,105,0.15) 0%, transparent 70%)',
-        'card-glow-ossos': 'radial-gradient(circle at center, rgba(147,51,234,0.15) 0%, transparent 70%)',
-        'card-glow-especiais': 'radial-gradient(circle at center, rgba(212,175,55,0.15) 0%, transparent 70%)',
+        'card-glow-muscles':
+          'radial-gradient(circle at center, rgba(220,38,38,0.15) 0%, transparent 70%)',
+        'card-glow-joints':
+          'radial-gradient(circle at center, rgba(5,150,105,0.15) 0%, transparent 70%)',
+        'card-glow-bones':
+          'radial-gradient(circle at center, rgba(147,51,234,0.15) 0%, transparent 70%)',
+        'card-glow-special':
+          'radial-gradient(circle at center, rgba(212,175,55,0.15) 0%, transparent 70%)',
       },
     },
   },
