@@ -1,16 +1,15 @@
 import Link from 'next/link'
 import type { Animal } from '@/domain/animal'
 import type { ResolvedRoadmap } from '@/domain/roadmap'
-import { cardImage, roteiroHref } from '@/domain/assets'
+import { cardImage, roadmapHref } from '@/domain/assets'
 import { getAnimal } from '@/services/animalService'
 
-interface RoteirosListProps {
+interface RoadmapsListProps {
   animal: Animal
   roadmaps: ResolvedRoadmap[]
 }
 
-/** Grid of roadmap cards for a single animal's roteiros list. */
-export default function RoteirosList({ animal, roadmaps }: RoteirosListProps) {
+export default function RoadmapsList({ animal, roadmaps }: RoadmapsListProps) {
   if (roadmaps.length === 0) {
     return (
       <div className="text-center py-24 space-y-3">
@@ -31,10 +30,9 @@ export default function RoteirosList({ animal, roadmaps }: RoteirosListProps) {
         return (
           <Link
             key={roadmap.slug}
-            href={roteiroHref(animal.id, roadmap.slug)}
+            href={roadmapHref(animal.id, roadmap.slug)}
             className="group relative bg-white dark:bg-dark-800 border border-gray-200 dark:border-white/10 hover:border-gold-500/40 rounded-2xl p-5 transition-all hover:shadow-lg hover:shadow-gold-500/5 flex flex-col gap-4"
           >
-            {/* Preview thumbnails */}
             <div className="flex gap-2 items-end">
               {previews.map((card, i) => (
                 <div
@@ -47,7 +45,6 @@ export default function RoteirosList({ animal, roadmaps }: RoteirosListProps) {
                     marginLeft: i > 0 ? -12 : 0,
                   }}
                 >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={cardImage(card)} alt="" className="w-full h-full object-cover" />
                 </div>
               ))}
@@ -61,7 +58,6 @@ export default function RoteirosList({ animal, roadmaps }: RoteirosListProps) {
               )}
             </div>
 
-            {/* Info */}
             <div className="space-y-1">
               <h2 className="font-cinzel text-base font-bold text-gray-900 dark:text-white group-hover:text-gold-400 transition-colors">
                 {roadmap.title}

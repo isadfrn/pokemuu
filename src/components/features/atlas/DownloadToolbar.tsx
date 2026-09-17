@@ -27,11 +27,18 @@ export default function DownloadToolbar({
   allCards,
 }: DownloadToolbarProps) {
   const [progress, setProgress] = useState<number | null>(null)
+  const [error, setError] = useState<string | null>(null)
 
   async function handleDownload(cards: Card[], zipName: string) {
     setProgress(0)
+    setError(null)
     try {
-      await downloadMultiple(cards, zipName, setProgress)
+      const result = await downloadMultiple(cards, zipName, setProgress)
+      if (result.failed.length > 0) {
+        setError(`${result.failed.length} de ${result.total} cards falharam e ficaram de fora.`)
+      }
+    } catch {
+      setError('Não foi possível gerar o download. Tente novamente.')
     } finally {
       setProgress(null)
     }
@@ -41,14 +48,14 @@ export default function DownloadToolbar({
 
   return (
     <div className="flex flex-wrap items-center gap-2">
-      {/* Select mode toggle */}
-      <Button
-        variant={selectMode ? 'outline' : 'ghost'}
-        size="sm"
-        onClick={onToggleSelectMode}
-      >
+      <Button variant={selectMode ? 'outline' : 'ghost'} size="sm" onClick={onToggleSelectMode}>
         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M9 12l2 2 4-4M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"
+          />
         </svg>
         Selecionar
         {selectMode && selectedIds.size > 0 && (
@@ -70,10 +77,17 @@ export default function DownloadToolbar({
               variant="outline"
               size="sm"
               loading={progress !== null}
-              onClick={() => handleDownload(selectedCards, `${animal.id}-selecionados-${selectedIds.size}.zip`)}
+              onClick={() =>
+                handleDownload(selectedCards, `${animal.id}-selecionados-${selectedIds.size}.zip`)
+              }
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+                />
               </svg>
               Baixar {selectedIds.size} selecionados
             </Button>
@@ -87,23 +101,27 @@ export default function DownloadToolbar({
         )}
       </AnimatePresence>
 
-      {/* Divider */}
       <div className="hidden sm:block w-px h-6 bg-gray-200 dark:bg-white/10" />
 
-      {/* Download all filtered */}
       <Button
         variant="ghost"
         size="sm"
         loading={progress !== null && !selectMode}
-        onClick={() => handleDownload(filteredCards, `${animal.id}-${filteredCards.length}-cards.zip`)}
+        onClick={() =>
+          handleDownload(filteredCards, `${animal.id}-${filteredCards.length}-cards.zip`)
+        }
       >
         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M12 10v6m0 0l-3-3m3 3l3-3M3 17V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z"
+          />
         </svg>
         Baixar todos ({filteredCards.length})
       </Button>
 
-      {/* Progress indicator */}
       <AnimatePresence>
         {progress !== null && (
           <motion.div
@@ -113,6 +131,20 @@ export default function DownloadToolbar({
             className="text-xs text-gold-400"
           >
             Comprimindo… {progress}%
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <AnimatePresence>
+        {error && progress === null && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            role="alert"
+            className="text-xs text-red-500 dark:text-red-400"
+          >
+            {error}
           </motion.div>
         )}
       </AnimatePresence>

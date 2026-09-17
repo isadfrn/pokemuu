@@ -36,7 +36,9 @@ export default function CategoryFilter({ active, onChange, counts }: CategoryFil
             )}
             <span className="relative">{meta.icon}</span>
             <span className="relative">{meta.label}</span>
-            <span className={`relative text-[10px] px-1.5 py-0.5 rounded-full ${isActive ? 'bg-white/20' : 'bg-gray-200 dark:bg-white/10'}`}>
+            <span
+              className={`relative text-[10px] px-1.5 py-0.5 rounded-full ${isActive ? 'bg-white/20' : 'bg-gray-200 dark:bg-white/10'}`}
+            >
               {counts[cat]}
             </span>
           </motion.button>

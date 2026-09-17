@@ -1,10 +1,5 @@
-/**
- * Builds the serializable view-model consumed by the animal picker components.
- * Runs on the server (pages call it) and hands plain data to the client grid.
- */
-
 import type { AnimalId } from '@/domain/animal'
-import { cardImagePath, atlasHref, roteirosHref } from '@/domain/assets'
+import { cardImagePath, atlasHref, roadmapsHref } from '@/domain/assets'
 import { getAnimals } from './animalService'
 import { getCards } from './cardService'
 import { countRoadmapsForAnimal } from './roadmapService'
@@ -20,10 +15,8 @@ export interface AnimalPickerItem {
   previewImages: string[]
 }
 
-/** Which hub the picker links into. */
-export type AnimalPickerContext = 'atlas' | 'roteiros'
+export type AnimalPickerContext = 'atlas' | 'roadmaps'
 
-/** Pick up to three spread-out cards to preview an animal visually. */
 function previewImagesFor(animalId: AnimalId): string[] {
   const cards = getCards(animalId)
   if (cards.length === 0) return []
@@ -49,11 +42,11 @@ export function buildAnimalPickerItems(context: AnimalPickerContext): AnimalPick
       }
     }
 
-    const href = context === 'atlas' ? atlasHref(animal.id) : roteirosHref(animal.id)
+    const href = context === 'atlas' ? atlasHref(animal.id) : roadmapsHref(animal.id)
     const meta =
       context === 'atlas'
         ? `${getCards(animal.id).length} cards`
-        : pluralRoteiros(countRoadmapsForAnimal(animal.id))
+        : pluralRoadmaps(countRoadmapsForAnimal(animal.id))
 
     return {
       id: animal.id,
@@ -68,6 +61,6 @@ export function buildAnimalPickerItems(context: AnimalPickerContext): AnimalPick
   })
 }
 
-function pluralRoteiros(n: number): string {
+function pluralRoadmaps(n: number): string {
   return `${n} roteiro${n === 1 ? '' : 's'}`
 }

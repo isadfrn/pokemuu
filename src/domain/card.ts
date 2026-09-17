@@ -1,28 +1,15 @@
-/**
- * Card domain model.
- *
- * A card is a single Pokémon-style anatomical card. Cards are authored per
- * animal (see `src/data/animals/<id>/cards.json`) without repeating the animal
- * on every entry — the raw shape is {@link RawCard}. The services layer tags
- * each raw card with its owning animal to produce a fully-resolved {@link Card}.
- */
-
 import type { AnimalId } from './animal'
 
-/** Anatomical category shared by every animal. */
-export type CardCategory = 'musculos' | 'articulacoes' | 'ossos' | 'especiais'
+export type CardCategory = 'muscles' | 'joints' | 'bones' | 'special'
 
-/** Filter that also includes the "all" pseudo-category. */
-export type CardFilter = CardCategory | 'todos'
+export type CardFilter = CardCategory | 'all'
 
-/** Raw card as stored in each animal's `cards.json` — animal is implicit. */
 export interface RawCard {
   id: number
   name: string
   category: CardCategory
 }
 
-/** Fully-resolved card, tagged with the animal it belongs to. */
 export interface Card extends RawCard {
   animal: AnimalId
 }
@@ -38,8 +25,8 @@ export interface CategoryMeta {
 }
 
 export const CATEGORY_META: Record<CardFilter, CategoryMeta> = {
-  todos: {
-    id: 'todos',
+  all: {
+    id: 'all',
     label: 'Todos',
     color: 'text-gold-400',
     bgColor: 'bg-dark-600',
@@ -47,49 +34,42 @@ export const CATEGORY_META: Record<CardFilter, CategoryMeta> = {
     glowColor: 'rgba(212,175,55,0.3)',
     icon: '⚡',
   },
-  musculos: {
-    id: 'musculos',
+  muscles: {
+    id: 'muscles',
     label: 'Músculos',
-    color: 'text-musculos-light',
-    bgColor: 'bg-musculos-dark',
-    borderColor: 'border-musculos/40',
+    color: 'text-muscles-light',
+    bgColor: 'bg-muscles-dark',
+    borderColor: 'border-muscles/40',
     glowColor: 'rgba(220,38,38,0.4)',
     icon: '💪',
   },
-  articulacoes: {
-    id: 'articulacoes',
+  joints: {
+    id: 'joints',
     label: 'Articulações',
-    color: 'text-articulacoes-light',
-    bgColor: 'bg-articulacoes-dark',
-    borderColor: 'border-articulacoes/40',
+    color: 'text-joints-light',
+    bgColor: 'bg-joints-dark',
+    borderColor: 'border-joints/40',
     glowColor: 'rgba(5,150,105,0.4)',
     icon: '🔗',
   },
-  ossos: {
-    id: 'ossos',
+  bones: {
+    id: 'bones',
     label: 'Ossos',
-    color: 'text-ossos-light',
-    bgColor: 'bg-ossos-dark',
-    borderColor: 'border-ossos/40',
+    color: 'text-bones-light',
+    bgColor: 'bg-bones-dark',
+    borderColor: 'border-bones/40',
     glowColor: 'rgba(147,51,234,0.4)',
     icon: '🦴',
   },
-  especiais: {
-    id: 'especiais',
+  special: {
+    id: 'special',
     label: 'Especiais',
-    color: 'text-especiais-light',
-    bgColor: 'bg-especiais-dark',
-    borderColor: 'border-especiais/40',
+    color: 'text-special-light',
+    bgColor: 'bg-special-dark',
+    borderColor: 'border-special/40',
     glowColor: 'rgba(217,119,6,0.4)',
     icon: '⭐',
   },
 }
 
-/** Ordered list of category filters for the atlas filter bar. */
-export const CATEGORY_FILTERS: CardFilter[] = [
-  'todos',
-  'musculos',
-  'articulacoes',
-  'ossos',
-  'especiais',
-]
+export const CATEGORY_FILTERS: CardFilter[] = ['all', 'muscles', 'joints', 'bones', 'special']

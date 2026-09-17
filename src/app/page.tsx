@@ -8,7 +8,6 @@ import { getAvailableAnimals } from '@/services/animalService'
 import { getCards } from '@/services/cardService'
 import { buildAnimalPickerItems } from '@/services/animalPicker'
 
-/** Five spread-out flagship card images for the hero fan. */
 function heroPreviewImages(): string[] {
   const available = getAvailableAnimals()
   if (available.length === 0) return []

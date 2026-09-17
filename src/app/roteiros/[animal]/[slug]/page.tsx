@@ -1,12 +1,12 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import PageShell from '@/components/layout/PageShell'
-import RoteiroClient from '@/components/features/roteiros/RoteiroClient'
-import { roteirosHubHref, roteirosHref } from '@/domain/assets'
+import RoadmapClient from '@/components/features/roadmaps/RoadmapClient'
+import { roadmapsHubHref, roadmapsHref } from '@/domain/assets'
 import { getAvailableAnimal, getAvailableAnimals } from '@/services/animalService'
 import { getRoadmap, getRoadmapsForAnimal } from '@/services/roadmapService'
 
-interface RoteiroDetailPageProps {
+interface RoadmapDetailPageProps {
   params: { animal: string; slug: string }
 }
 
@@ -19,7 +19,7 @@ export function generateStaticParams() {
   )
 }
 
-export function generateMetadata({ params }: RoteiroDetailPageProps) {
+export function generateMetadata({ params }: RoadmapDetailPageProps) {
   const roadmap = getRoadmap(params.slug)
   if (!roadmap) return {}
   return {
@@ -28,18 +28,18 @@ export function generateMetadata({ params }: RoteiroDetailPageProps) {
   }
 }
 
-export default function RoteiroDetailPage({ params }: RoteiroDetailPageProps) {
+export default function RoadmapDetailPage({ params }: RoadmapDetailPageProps) {
   const animal = getAvailableAnimal(params.animal)
   const roadmap = getRoadmap(params.slug)
   if (!animal || !roadmap || !roadmap.animals.includes(animal.id)) notFound()
 
   const breadcrumb = (
     <nav className="text-xs text-gray-400 dark:text-white/40 flex items-center gap-1.5 flex-wrap">
-      <Link href={roteirosHubHref} className="hover:text-gold-400 transition-colors">
+      <Link href={roadmapsHubHref} className="hover:text-gold-400 transition-colors">
         Roteiros
       </Link>
       <span>/</span>
-      <Link href={roteirosHref(animal.id)} className="hover:text-gold-400 transition-colors">
+      <Link href={roadmapsHref(animal.id)} className="hover:text-gold-400 transition-colors">
         {animal.name}
       </Link>
       <span>/</span>
@@ -53,7 +53,7 @@ export default function RoteiroDetailPage({ params }: RoteiroDetailPageProps) {
       subtitle={`${roadmap.description} · ${roadmap.resolvedCards.length} cards`}
       breadcrumb={breadcrumb}
     >
-      <RoteiroClient cards={roadmap.resolvedCards} />
+      <RoadmapClient cards={roadmap.resolvedCards} />
     </PageShell>
   )
 }

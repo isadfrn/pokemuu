@@ -1,7 +1,7 @@
 import type { Card } from '@/domain/card'
 import { cardImage } from '@/domain/assets'
 
-function toFilename(name: string): string {
+export function toFilename(name: string): string {
   return name
     .toLowerCase()
     .normalize('NFD')
@@ -19,26 +19,45 @@ export function downloadSingle(card: Card): void {
   document.body.removeChild(link)
 }
 
+export interface DownloadResult {
+  total: number
+  succeeded: number
+  failed: Card[]
+}
+
 export async function downloadMultiple(
   cards: Card[],
   zipName = 'pokemuu-cards.zip',
   onProgress?: (pct: number) => void,
-): Promise<void> {
+): Promise<DownloadResult> {
   const { default: JSZip } = await import('jszip')
 
   const zip = new JSZip()
   const folder = zip.folder('pokemuu')!
 
   let done = 0
-  await Promise.all(
+  const failed: Card[] = []
+
+  const results = await Promise.allSettled(
     cards.map(async (card) => {
       const res = await fetch(cardImage(card))
+      if (!res.ok) throw new Error(`HTTP ${res.status} for card ${card.id}`)
       const blob = await res.blob()
       folder.file(`${card.id}-${toFilename(card.name)}.webp`, blob)
-      done++
-      onProgress?.(Math.round((done / cards.length) * 100))
     }),
   )
+
+  results.forEach((result, i) => {
+    if (result.status === 'rejected') failed.push(cards[i])
+    done++
+    onProgress?.(Math.round((done / cards.length) * 100))
+  })
+
+  const succeeded = cards.length - failed.length
+
+  if (succeeded === 0) {
+    throw new Error('Nenhum card pôde ser baixado.')
+  }
 
   const blob = await zip.generateAsync({ type: 'blob' })
   const url = URL.createObjectURL(blob)
@@ -49,4 +68,6 @@ export async function downloadMultiple(
   link.click()
   document.body.removeChild(link)
   URL.revokeObjectURL(url)
+
+  return { total: cards.length, succeeded, failed }
 }

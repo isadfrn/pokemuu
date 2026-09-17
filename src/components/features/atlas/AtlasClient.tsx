@@ -21,7 +21,7 @@ interface AtlasClientProps {
 export default function AtlasClient({ animal, cards }: AtlasClientProps) {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const initCategory = (searchParams.get('category') as CardFilter) ?? 'todos'
+  const initCategory = (searchParams.get('category') as CardFilter) ?? 'all'
 
   const [query, setQuery] = useState('')
   const [activeCategory, setActiveCategory] = useState<CardFilter>(initCategory)
@@ -31,46 +31,46 @@ export default function AtlasClient({ animal, cards }: AtlasClientProps) {
 
   const fuse = useMemo(() => createSearchIndex(cards), [cards])
 
+  const queryResults = useMemo(() => {
+    return query.trim().length >= 2 ? fuse.search(query).map((r) => r.item) : cards
+  }, [query, cards, fuse])
+
   const filteredCards = useMemo(() => {
-    let result: Card[]
-    if (query.trim().length >= 2) {
-      result = fuse.search(query).map((r) => r.item)
-    } else {
-      result = cards
-    }
-    if (activeCategory !== 'todos') {
-      result = result.filter((c) => c.category === activeCategory)
-    }
-    return result
-  }, [query, activeCategory, cards, fuse])
+    if (activeCategory === 'all') return queryResults
+    return queryResults.filter((c) => c.category === activeCategory)
+  }, [queryResults, activeCategory])
 
   const counts = useMemo(() => {
-    const filtered = query.trim().length >= 2
-      ? fuse.search(query).map((r) => r.item)
-      : cards
-    const filteredByQuery = filtered.reduce(
-      (acc, c) => { acc[c.category] = (acc[c.category] ?? 0) + 1; return acc },
+    const filteredByQuery = queryResults.reduce(
+      (acc, c) => {
+        acc[c.category] = (acc[c.category] ?? 0) + 1
+        return acc
+      },
       {} as Record<string, number>,
     )
     return {
-      todos: filtered.length,
-      musculos: filteredByQuery.musculos ?? 0,
-      articulacoes: filteredByQuery.articulacoes ?? 0,
-      ossos: filteredByQuery.ossos ?? 0,
-      especiais: filteredByQuery.especiais ?? 0,
+      all: queryResults.length,
+      muscles: filteredByQuery.muscles ?? 0,
+      joints: filteredByQuery.joints ?? 0,
+      bones: filteredByQuery.bones ?? 0,
+      special: filteredByQuery.special ?? 0,
     } as Record<CardFilter, number>
-  }, [cards, fuse, query])
+  }, [queryResults])
 
-  const handleCategoryChange = useCallback((cat: CardFilter) => {
-    setActiveCategory(cat)
-    const params = cat !== 'todos' ? `?category=${cat}` : ''
-    router.replace(`${atlasHref(animal.id)}${params}`, { scroll: false })
-  }, [router, animal.id])
+  const handleCategoryChange = useCallback(
+    (cat: CardFilter) => {
+      setActiveCategory(cat)
+      const params = cat !== 'all' ? `?category=${cat}` : ''
+      router.replace(`${atlasHref(animal.id)}${params}`, { scroll: false })
+    },
+    [router, animal.id],
+  )
 
   const handleSelect = useCallback((id: number) => {
     setSelectedIds((prev) => {
       const next = new Set(prev)
-      if (next.has(id)) next.delete(id); else next.add(id)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
       return next
     })
   }, [])
@@ -82,24 +82,15 @@ export default function AtlasClient({ animal, cards }: AtlasClientProps) {
 
   return (
     <div className="space-y-4">
-      {/* Controls */}
       <div className="sticky top-14 z-30 bg-white/90 dark:bg-dark-900/90 backdrop-blur-md border-b border-gray-200 dark:border-white/5 py-3 -mx-4 sm:-mx-6 px-4 sm:px-6">
         <div className="max-w-7xl mx-auto space-y-3">
           <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
-            <SearchInput
-              value={query}
-              onChange={setQuery}
-              className="w-full sm:max-w-xs"
-            />
+            <SearchInput value={query} onChange={setQuery} className="w-full sm:max-w-xs" />
             <span className="text-gray-500 dark:text-white/60 text-xs hidden sm:block">
               {filteredCards.length} de {cards.length} cards
             </span>
           </div>
-          <CategoryFilter
-            active={activeCategory}
-            onChange={handleCategoryChange}
-            counts={counts}
-          />
+          <CategoryFilter active={activeCategory} onChange={handleCategoryChange} counts={counts} />
           <div className="flex items-center justify-between flex-wrap gap-2 pt-1 border-t border-gray-200 dark:border-white/5">
             <span className="text-gray-500 dark:text-white/60 text-xs sm:hidden">
               {filteredCards.length} cards
@@ -117,7 +108,6 @@ export default function AtlasClient({ animal, cards }: AtlasClientProps) {
         </div>
       </div>
 
-      {/* Grid */}
       <div className="max-w-7xl mx-auto">
         <AnimatePresence mode="popLayout">
           {filteredCards.length > 0 ? (
@@ -146,7 +136,9 @@ export default function AtlasClient({ animal, cards }: AtlasClientProps) {
               className="text-center py-24 space-y-3"
             >
               <p className="text-4xl">🔍</p>
-              <p className="text-gray-600 dark:text-white/75 text-sm">Nenhum card encontrado para &ldquo;{query}&rdquo;</p>
+              <p className="text-gray-600 dark:text-white/75 text-sm">
+                Nenhum card encontrado para &ldquo;{query}&rdquo;
+              </p>
               <button onClick={() => setQuery('')} className="text-gold-400 text-xs underline">
                 Limpar busca
               </button>
@@ -155,7 +147,6 @@ export default function AtlasClient({ animal, cards }: AtlasClientProps) {
         </AnimatePresence>
       </div>
 
-      {/* Modal */}
       <CardModal
         card={modalCard}
         allCards={filteredCards}

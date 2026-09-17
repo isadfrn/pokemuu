@@ -6,11 +6,8 @@ import Image from 'next/image'
 import { atlasHubHref } from '@/domain/assets'
 
 interface HeroProps {
-  /** Card images shown in the fan (flagship animal). */
   previewImages: string[]
-  /** Total number of cards across all available animals. */
   totalCards: number
-  /** Number of available animals. */
   animalCount: number
 }
 
@@ -25,22 +22,19 @@ const cardTransforms = [
 export default function Hero({ previewImages, totalCards, animalCount }: HeroProps) {
   return (
     <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden">
-      {/* Background */}
       <div className="absolute inset-0 bg-gray-50 dark:bg-dark-900" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_40%,_rgba(212,175,55,0.06)_0%,_transparent_100%)] dark:bg-[radial-gradient(ellipse_80%_60%_at_50%_40%,_rgba(20,16,30,0.9)_0%,_transparent_100%)]" />
 
-      {/* Subtle grid lines */}
       <div
         className="absolute inset-0 opacity-[0.06] dark:opacity-[0.03]"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(212,175,55,1) 1px, transparent 1px), linear-gradient(90deg, rgba(212,175,55,1) 1px, transparent 1px)",
-          backgroundSize: "60px 60px",
+            'linear-gradient(rgba(212,175,55,1) 1px, transparent 1px), linear-gradient(90deg, rgba(212,175,55,1) 1px, transparent 1px)',
+          backgroundSize: '60px 60px',
         }}
       />
 
       <div className="relative z-10 flex flex-col items-center gap-10 px-4 text-center max-w-3xl mx-auto w-full">
-        {/* Card fan */}
         <div className="relative h-56 sm:h-64 w-full max-w-md flex items-center justify-center">
           {previewImages.map((src, i) => {
             const t = cardTransforms[i] ?? cardTransforms[cardTransforms.length - 1]
@@ -60,7 +54,7 @@ export default function Hero({ previewImages, totalCards, animalCount }: HeroPro
                   transition: { duration: 0.2 },
                 }}
                 style={{
-                  position: "absolute",
+                  position: 'absolute',
                   rotate: t.rotate,
                   x: t.x,
                   scale: t.scale,
@@ -79,11 +73,10 @@ export default function Hero({ previewImages, totalCards, animalCount }: HeroPro
                   />
                 </div>
               </motion.div>
-            );
+            )
           })}
         </div>
 
-        {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -102,11 +95,11 @@ export default function Hero({ previewImages, totalCards, animalCount }: HeroPro
 
           <p className="text-gray-600 dark:text-white/70 text-base sm:text-lg font-light max-w-md mx-auto leading-relaxed">
             Cards de anatomia veterinária no estilo Pokémon
-            <br className="hidden sm:block" /> — começando pelos bovinos, com novos animais a caminho.
+            <br className="hidden sm:block" /> — começando pelos bovinos, com novos animais a
+            caminho.
           </p>
         </motion.div>
 
-        {/* CTA */}
         <motion.div
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
@@ -118,12 +111,7 @@ export default function Hero({ previewImages, totalCards, animalCount }: HeroPro
             className="inline-flex items-center gap-2.5 px-7 py-3 rounded-xl bg-gold-500 hover:bg-gold-400 text-dark-900 font-bold text-sm tracking-wide transition-all hover:scale-[1.02] active:scale-[0.98] shadow-lg shadow-gold-500/20"
           >
             Escolher um animal
-            <svg
-              className="w-4 h-4"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -141,7 +129,6 @@ export default function Hero({ previewImages, totalCards, animalCount }: HeroPro
         </motion.div>
       </div>
 
-      {/* Scroll hint */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -150,15 +137,10 @@ export default function Hero({ previewImages, totalCards, animalCount }: HeroPro
       >
         <motion.div
           animate={{ y: [0, 6, 0] }}
-          transition={{ duration: 2.5, repeat: Infinity, ease: "easeInOut" }}
+          transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
           className="text-gray-400 dark:text-white/35"
         >
-          <svg
-            className="w-5 h-5"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
+          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -169,5 +151,5 @@ export default function Hero({ previewImages, totalCards, animalCount }: HeroPro
         </motion.div>
       </motion.div>
     </section>
-  );
+  )
 }

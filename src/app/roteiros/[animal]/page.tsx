@@ -1,12 +1,12 @@
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import PageShell from '@/components/layout/PageShell'
-import RoteirosList from '@/components/features/roteiros/RoteirosList'
-import { roteirosHubHref } from '@/domain/assets'
+import RoadmapsList from '@/components/features/roadmaps/RoadmapsList'
+import { roadmapsHubHref } from '@/domain/assets'
 import { getAvailableAnimal, getAvailableAnimals } from '@/services/animalService'
 import { getRoadmapsForAnimal } from '@/services/roadmapService'
 
-interface RoteirosAnimalPageProps {
+interface RoadmapsAnimalPageProps {
   params: { animal: string }
 }
 
@@ -14,7 +14,7 @@ export function generateStaticParams() {
   return getAvailableAnimals().map((a) => ({ animal: a.id }))
 }
 
-export function generateMetadata({ params }: RoteirosAnimalPageProps) {
+export function generateMetadata({ params }: RoadmapsAnimalPageProps) {
   const animal = getAvailableAnimal(params.animal)
   if (!animal) return {}
   return {
@@ -23,7 +23,7 @@ export function generateMetadata({ params }: RoteirosAnimalPageProps) {
   }
 }
 
-export default function RoteirosAnimalPage({ params }: RoteirosAnimalPageProps) {
+export default function RoadmapsAnimalPage({ params }: RoadmapsAnimalPageProps) {
   const animal = getAvailableAnimal(params.animal)
   if (!animal) notFound()
 
@@ -31,7 +31,7 @@ export default function RoteirosAnimalPage({ params }: RoteirosAnimalPageProps) 
 
   const breadcrumb = (
     <nav className="text-xs text-gray-400 dark:text-white/40 flex items-center gap-1.5">
-      <Link href={roteirosHubHref} className="hover:text-gold-400 transition-colors">
+      <Link href={roadmapsHubHref} className="hover:text-gold-400 transition-colors">
         Roteiros
       </Link>
       <span>/</span>
@@ -45,7 +45,7 @@ export default function RoteirosAnimalPage({ params }: RoteirosAnimalPageProps) 
       subtitle={`${roadmaps.length} roteiro${roadmaps.length === 1 ? '' : 's'} · ${animal.emoji} ${animal.name}`}
       breadcrumb={breadcrumb}
     >
-      <RoteirosList animal={animal} roadmaps={roadmaps} />
+      <RoadmapsList animal={animal} roadmaps={roadmaps} />
     </PageShell>
   )
 }

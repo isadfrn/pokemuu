@@ -5,11 +5,12 @@ import { getAvailableAnimals } from '@/services/animalService'
 
 export const metadata = {
   title: 'Roteiros · Escolha o animal · Pokémuu',
-  description: 'Escolha um animal para ver seus roteiros de estudo com cards selecionados por tema.',
+  description:
+    'Escolha um animal para ver seus roteiros de estudo com cards selecionados por tema.',
 }
 
-export default function RoteirosHubPage() {
-  const items = buildAnimalPickerItems('roteiros')
+export default function RoadmapsHubPage() {
+  const items = buildAnimalPickerItems('roadmaps')
   const available = getAvailableAnimals().length
 
   return (

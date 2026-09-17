@@ -7,7 +7,6 @@ interface AnimalSectionProps {
   items: AnimalPickerItem[]
 }
 
-/** Home section that lets the visitor pick an animal to explore. */
 export default function AnimalSection({ items }: AnimalSectionProps) {
   return (
     <section id="animais" className="py-24 px-4 sm:px-6">

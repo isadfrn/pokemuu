@@ -1,7 +1,6 @@
 import Fuse from 'fuse.js'
 import type { Card } from '@/domain/card'
 
-/** Build a fuzzy-search index over a set of cards (scoped to one animal). */
 export function createSearchIndex(cards: Card[]): Fuse<Card> {
   return new Fuse(cards, {
     keys: ['name'],

@@ -24,7 +24,6 @@ export default function AnimalCard({ item, index }: AnimalCardProps) {
           : 'bg-gray-50 dark:bg-dark-800/50 border-dashed border-gray-200 dark:border-white/10'
       }`}
     >
-      {/* Visual */}
       <div className="relative h-32 flex items-end justify-center overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_20%,_rgba(212,175,55,0.10)_0%,_transparent_65%)]" />
         {item.available && item.previewImages.length > 0 ? (
@@ -62,7 +61,6 @@ export default function AnimalCard({ item, index }: AnimalCardProps) {
         )}
       </div>
 
-      {/* Info */}
       <div className="p-4 space-y-1.5">
         <div className="flex items-center justify-between gap-2">
           <span
@@ -87,7 +85,12 @@ export default function AnimalCard({ item, index }: AnimalCardProps) {
         {item.available && (
           <div className="flex items-center gap-1 pt-1 text-gold-500 dark:text-gold-400 text-xs font-medium">
             <span>Explorar</span>
-            <svg className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg
+              className="w-3 h-3 group-hover:translate-x-0.5 transition-transform"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
           </div>

@@ -5,11 +5,11 @@ import type { Card } from '@/domain/card'
 import FlashCard from './FlashCard'
 import CardModal from '@/components/features/atlas/CardModal'
 
-interface RoteiroClientProps {
+interface RoadmapClientProps {
   cards: Card[]
 }
 
-export default function RoteiroClient({ cards }: RoteiroClientProps) {
+export default function RoadmapClient({ cards }: RoadmapClientProps) {
   const [modalCard, setModalCard] = useState<Card | null>(null)
 
   const handleOpen = useCallback((card: Card) => setModalCard(card), [])
