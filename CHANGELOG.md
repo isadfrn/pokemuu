@@ -1,30 +1,36 @@
 # Changelog
 
-All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
-
-## [1.0.0] - 2026-06-15
+## v1.0.0
 
 First stable release of Pokémuu — a veterinary anatomical atlas of bovines in Pokémon-style card format.
 
-### Added
+### 🚀 Enhancements
 
-- Initial project MVP with the full bovine anatomical atlas (328 cards across Muscles, Joints, Bones and Special categories).
-- Docker infrastructure for containerized builds and deployment.
-- VPS deployment script.
-- Developer name credit in the footer.
-- Light theme support, set as the default theme.
-- Roadmap section.
-- Adjusted card numbering.
-- English version of the README.
+- Add project mvp ([7ccd7c4](https://github.com/isadfrn/pokemuu/commit/7ccd7c4))
+- Add docker infra ([47500ec](https://github.com/isadfrn/pokemuu/commit/47500ec))
+- Update vps script ([245fb7f](https://github.com/isadfrn/pokemuu/commit/245fb7f))
+- Add footer dev name ([db3df7d](https://github.com/isadfrn/pokemuu/commit/db3df7d))
+- Add light theme ([a5f8b47](https://github.com/isadfrn/pokemuu/commit/a5f8b47))
+- Make light theme default ([f479e8e](https://github.com/isadfrn/pokemuu/commit/f479e8e))
+- Make readme en ([ec781c5](https://github.com/isadfrn/pokemuu/commit/ec781c5))
+- Add roadmap ([a3c76ec](https://github.com/isadfrn/pokemuu/commit/a3c76ec))
+- Adjust card numbers ([f69d9dc](https://github.com/isadfrn/pokemuu/commit/f69d9dc))
+- Add changelog ([0924ec8](https://github.com/isadfrn/pokemuu/commit/0924ec8))
 
-### Changed
+### 🔥 Performance
 
-- Converted card images to WebP for improved performance.
+- Convert card images to WebP ([27455fb](https://github.com/isadfrn/pokemuu/commit/27455fb))
 
-### Fixed
+### 🩹 Fixes
 
-- Escaped quotes in the empty state message.
-- Added Buildx setup to enable GitHub Actions cache support.
+- Add buildx setup for GHA cache support ([9bfc705](https://github.com/isadfrn/pokemuu/commit/9bfc705))
+- Escape quotes in empty state message ([4a42347](https://github.com/isadfrn/pokemuu/commit/4a42347))
+
+### 💅 Refactors
+
+- Change arch to allow multiple animals ([ede42b7](https://github.com/isadfrn/pokemuu/commit/ede42b7))
+
+### ❤️ Contributors
+
+- Isadfrn ([@isadfrn](https://github.com/isadfrn))

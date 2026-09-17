@@ -2,15 +2,6 @@ import sharp from 'sharp'
 import { readdir, unlink } from 'fs/promises'
 import { join } from 'path'
 
-/**
- * Converts a single animal's PNG cards to WebP.
- *
- * Usage: node scripts/convert-to-webp.mjs <animal>
- *   e.g. node scripts/convert-to-webp.mjs bovinos
- *
- * Reads/writes `public/cards/<animal>/`.
- */
-
 const QUALITY = 85
 
 const animal = process.argv[2]
@@ -31,17 +22,19 @@ if (files.length === 0) {
 console.log(`Convertendo ${files.length} arquivos PNG → WebP (${animal}, qualidade ${QUALITY})...`)
 
 let done = 0
-await Promise.all(files.map(async (file) => {
-  const input  = join(CARDS_DIR, file)
-  const output = join(CARDS_DIR, file.replace('.png', '.webp'))
+await Promise.all(
+  files.map(async (file) => {
+    const input = join(CARDS_DIR, file)
+    const output = join(CARDS_DIR, file.replace('.png', '.webp'))
 
-  await sharp(input).webp({ quality: QUALITY }).toFile(output)
-  await unlink(input)
+    await sharp(input).webp({ quality: QUALITY }).toFile(output)
+    await unlink(input)
 
-  done++
-  if (done % 50 === 0 || done === files.length) {
-    console.log(`  ${done}/${files.length}`)
-  }
-}))
+    done++
+    if (done % 50 === 0 || done === files.length) {
+      console.log(`  ${done}/${files.length}`)
+    }
+  }),
+)
 
 console.log('✅ Conversão concluída.')

@@ -104,7 +104,7 @@ src/
 ├── data/                       # Raw content (no logic)
 │   ├── animals/
 │   │   ├── registry.ts         # ← single registration point for animals
-│   │   └── bovinos/cards.json  # Bovine card metadata
+│   │   └── cattle/cards.json   # Bovine card metadata
 │   └── roadmaps.ts             # Roadmap definitions (via cardsOf)
 ├── services/                   # Application layer — query functions used by pages
 │   ├── animalService.ts        # getAnimals / getAvailableAnimal / …
@@ -135,7 +135,7 @@ Card images live in `public/cards/<animal>/<id>.webp`.
 
 No component or page changes are needed — it is a data-only change:
 
-1. Add the card images to `public/cards/<animal>/` (e.g. `public/cards/gato/1.webp`).
+1. Add the card images to `public/cards/<animal>/` (e.g. `public/cards/cat/1.webp`).
    If you have PNGs, convert them: `node scripts/convert-to-webp.mjs <animal>`.
 2. Create `src/data/animals/<animal>/cards.json` — an array of `{ id, name, category }`.
 3. Add the animal's id to the `AnimalId` union in `src/domain/animal.ts`.

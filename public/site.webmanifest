@@ -1,7 +1,7 @@
 {
-  "name": "Atlas Anatômico Veterinário",
-  "short_name": "Atlas Vet",
-  "description": "Atlas Anatômico Veterinário Bovino — Cards Série Pokémon",
+  "name": "Pokémuu · Atlas Anatômico Veterinário",
+  "short_name": "Pokémuu",
+  "description": "Atlas Anatômico Veterinário em cards estilo Pokémon — anatomia de múltiplos animais, começando pelos bovinos.",
   "icons": [
     { "src": "/favicon.svg", "sizes": "any", "type": "image/svg+xml" },
     { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
